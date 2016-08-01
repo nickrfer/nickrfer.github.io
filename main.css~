@@ -48,7 +48,6 @@ body {
 /* additional sections */
 
 #about {
-  padding-top: 5%;
   display: table;
   height: 100%;
   position: relative;
