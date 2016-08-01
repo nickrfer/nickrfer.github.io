@@ -34,8 +34,8 @@
 	<div id="about" class="about">
 		<div class="vcenter">
 			<div class="panel">
-				<img src="https://en.gravatar.com/userimage/102645074/3470dda6368a88a37ef4dc225eecbce4.jpg?size=170" class="img-circle" alt="Avatar">
-				<h1>Nicolas Ferreira</h1>
+				<img src="https://en.gravatar.com/userimage/102645074/3470dda6368a88a37ef4dc225eecbce4.jpg?size=200" class="img-circle" alt="Avatar">
+				<h1>Nicolas Ferreira</h1><i class="fa fa-hand-pointer-o fa-5x" aria-hidden="true"></i>
 				<h3>Senior Web and Mobile Software Engineer, and a loving father <i class="fa fa-heart" aria-hidden="true"></i></h3>
 				<h3>Here's my <a href="https://drive.google.com/open?id=0B3xp00iBv0Ccc09wUldwNUEyYTA">resume</a>!</h3>
 			</div>
@@ -92,22 +92,22 @@
 				<br />
 				<p>
 					<a href="https://github.com/nickrfer" target='_blank'>
-						<i class="fa fa-github fa-fw fa-2x"></i>
+						<i class="fa fa-github fa-fw fa-3x"></i>
 					</a>
 					<a href="https://www.linkedin.com/in/nickrfer" target='_blank'>
-						<i class="fa fa-linkedin fa-fw fa-2x"></i>
+						<i class="fa fa-linkedin fa-fw fa-3x"></i>
 					</a>
 					<a href="http://www.twitter.com/nickrfer" target='_blank'>
-						<i class="fa fa-twitter fa-fw fa-2x"></i>
+						<i class="fa fa-twitter fa-fw fa-3x"></i>
 					</a>
 					<a href="http://www.facebook.com/nickrfer" target='_blank'>
-						<i class="fa fa-facebook fa-fw fa-2x"></i>
+						<i class="fa fa-facebook fa-fw fa-3x"></i>
 					</a>
 					<a href="http://www.freecodecamp.com/nickrfer" target='_blank'>
-						<i class="fa fa-fire fa-fw fa-2x"></i>
+						<i class="fa fa-fire fa-fw fa-3x"></i>
 					</a>
 					<a href="http://codepen.io/nickrfer" target='_blank'>
-						<i class="fa fa-codepen fa-fw fa-2x"></i>
+						<i class="fa fa-codepen fa-fw fa-3x"></i>
 					</a>
 				</p>
 			</div>
@@ -144,4 +144,3 @@
 	</script>
 </body>
 </html>
-
