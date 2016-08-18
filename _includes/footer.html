@@ -1,0 +1,34 @@
+<footer class="c-footer">
+  <div class="u-container c-footer__container">
+    <p>&copy; {{ site.title }} {{ site.time | date: '%Y' }}</p>
+    <p>
+        <div class="c-social__icons">
+          {% if site.githubUsername %}
+            <a class="grey-text text-lighten-4 right"  href="https://github.com/{{ site.githubUsername }}" target='_blank'>
+    					<i class="typcn typcn-social-github"></i>
+    				</a>
+          {% endif %}
+          {% if site.twitterUsername %}
+            <a class="grey-text text-lighten-4 social-icon right" href="http://twitter.com/{{ site.twitterUsername }}" target='_blank'>
+    					<i class="typcn typcn-social-twitter"></i>
+    				</a>
+          {% endif %}
+          {% if site.linkedinUsername %}
+    				<a class="grey-text text-lighten-4 right" href="https://www.linkedin.com/in/{{ site.linkedinUsername }}" target='_blank'>
+    					<i class="typcn typcn-social-linkedin"></i>
+    				</a>
+          {% endif %}
+          {% if site.codepenUsername %}
+    				<a class="grey-text text-lighten-4 right" href="http://codepen.io/{{ site.codepenUsername }}" target='_blank'>
+    					<i class="typcn typcn-code"></i>
+    				</a>
+          {% endif %}
+  			  {% if site.freecodecampUsername %}
+    				<a class="grey-text text-lighten-4 right" href="http://www.freecodecamp.com/{{ site.freecodecampUsername }}" target='_blank'>
+    					<i class="typcn typcn-chart-area"></i>
+    				</a>
+          {% endif %}
+        </div>
+    </p>
+  </div>
+</footer>

@@ -1,14 +1,7 @@
 ---
 layout: page
-title: < nickrfer />
+permalink: /blog/
 ---
-
-<p>
-  Blog about backend and frotend development, from a constant learning software engineer. Also contains my portfolio, and my resume in this <a href="https://drive.google.com/open?id=0B3xp00iBv0Ccc09wUldwNUEyYTA">link</a>. Feel free to stalk me in any of the social medias presented in the footer. &#128521;
-</p>
-
-<div class="col s12" style="text-align: center;">&nbsp;</div>
-
 {% for post in site.posts  %}
     {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
     {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
