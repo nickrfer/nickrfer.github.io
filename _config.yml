@@ -33,7 +33,7 @@ freecodecampUsername: nickrfer
 markdown: kramdown
 
 #theme: purple # green, blue, orange, purple, grey
-theme: grey
+theme: blue
 fixedNav: 'true' # true or false
 
 permalink: /:year/:month/:title

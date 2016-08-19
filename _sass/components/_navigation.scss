@@ -35,7 +35,6 @@
   @include ff--mono(500);
   @include fs--meta;
   color: $c__white;
-  text-transform: uppercase;
 
   &:not(:last-of-type) {
     margin-right: 2.5rem;
@@ -56,4 +55,10 @@
   &.is-active:after {
     background: $c__white;
   }
+}
+
+.c-navigation__logo {
+  @extend .c-navigation__item;
+  font-size: 2.0em;
+  margin-right: 5.0em;
 }
