@@ -3,27 +3,27 @@
     <p>
         <div class="c-social__icons">
           {% if site.githubUsername %}
-            <a class="grey-text text-lighten-4 right"  href="https://github.com/{{ site.githubUsername }}" target='_blank'>
+            <a class="grey-text right"  href="https://github.com/{{ site.githubUsername }}" target='_blank'>
     					<i class="typcn typcn-social-github"></i>
     				</a>
           {% endif %}
           {% if site.twitterUsername %}
-            <a class="grey-text text-lighten-4 social-icon right" href="http://twitter.com/{{ site.twitterUsername }}" target='_blank'>
+            <a class="grey-text social-icon right" href="http://twitter.com/{{ site.twitterUsername }}" target='_blank'>
     					<i class="typcn typcn-social-twitter"></i>
     				</a>
           {% endif %}
           {% if site.linkedinUsername %}
-    				<a class="grey-text text-lighten-4 right" href="https://www.linkedin.com/in/{{ site.linkedinUsername }}" target='_blank'>
+    				<a class="grey-text right" href="https://www.linkedin.com/in/{{ site.linkedinUsername }}" target='_blank'>
     					<i class="typcn typcn-social-linkedin"></i>
     				</a>
           {% endif %}
           {% if site.codepenUsername %}
-    				<a class="grey-text text-lighten-4 right" href="http://codepen.io/{{ site.codepenUsername }}" target='_blank'>
+    				<a class="grey-text right" href="http://codepen.io/{{ site.codepenUsername }}" target='_blank'>
     					<i class="typcn typcn-code"></i>
     				</a>
           {% endif %}
   			  {% if site.freecodecampUsername %}
-    				<a class="grey-text text-lighten-4 right" href="http://www.freecodecamp.com/{{ site.freecodecampUsername }}" target='_blank'>
+    				<a class="grey-text right" href="http://www.freecodecamp.com/{{ site.freecodecampUsername }}" target='_blank'>
     					<i class="typcn typcn-chart-area"></i>
     				</a>
           {% endif %}
@@ -31,3 +31,16 @@
     </p>
   </div>
 </footer>
+
+<script src="{{"/js/jquery-2.1.1.min.js" | prepend: site.github.baseurl}}"></script>
+<link rel="stylesheet" href="{{ "/fonts/material-icons.css" | prepend: site.baseurl }}">
+
+<!-- build:jsa -->
+<script src="{{"/js/materialize.min.js" | prepend: site.github.baseurl}}"></script>
+<script src="{{"/js/init.js" | prepend: site.github.baseurl}}"></script>
+<script src="{{"/js/plugins/smooth-scroll.js" | prepend: site.github.baseurl}}"></script>
+<script type="text/javascript" src="{{ "/js/plugins/super-search.js" | prepend: site.github.baseurl }}"></script>
+<script src="{{"/js/plugins/jquery.appear.js" | prepend: site.github.baseurl}}"></script>
+<script src="{{"/js/plugins/skills.js" | prepend: site.github.baseurl}}"></script>
+<!-- endbuild -->
+<script src="{{"/js/plugins/detect-mobile.js" | prepend: site.github.baseurl}}"></script>

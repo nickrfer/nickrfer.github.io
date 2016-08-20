@@ -24,7 +24,8 @@
   'components/archives',
   'components/social',
   'components/buttons',
-  'components/footer';
+  'components/footer',
+  'components/color';
 
 // Themes
 @import
@@ -37,3 +38,6 @@
 // Vendor
 @import
   'vendor/syntax-highlighting';
+
+@import
+  'skill-bars';
