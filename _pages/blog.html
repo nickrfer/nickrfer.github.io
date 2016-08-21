@@ -7,11 +7,11 @@ permalink: /blog/
     {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
 
     {% if forloop.first %}
-        <h2 class="c-archives__year" id="{{ this_year }}-ref">{{this_year}}</h2>
+        <h4 class="c-archives__year" id="{{ this_year }}-ref">{{this_year}}</h4>
         <ul class="c-archives__list">
     {% endif %}
         <li class="c-archives__item">
-            <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+            <h5><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h5>
             <p>{{ post.date | date: "%b %-d, %Y" }}</p>
         </li>
     {% if forloop.last %}
@@ -19,7 +19,7 @@ permalink: /blog/
     {% else %}
         {% if this_year != next_year %}
         </ul>
-        <h2 class="c-archives__year" id="{{ next_year }}-ref">{{next_year}}</h2>
+        <h4 class="c-archives__year" id="{{ next_year }}-ref">{{next_year}}</h4>
         <ul class="c-archives__list">
         {% endif %}
     {% endif %}

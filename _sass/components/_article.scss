@@ -10,14 +10,12 @@
   max-width: 76rem; // 760px;
   margin-right: auto;
   margin-left: auto;
-  padding-top: 5.5rem;
-  padding-bottom: 7.5rem;
+  padding-bottom: 3.5rem;
   padding-right: 2.5rem;
   padding-left: 2.5rem;
-  @include fs--body;
 
   > * {
-    margin-bottom: 1.8rem;
+    margin-bottom: 0.8rem;
     color: rgba($c__black, .7);
   }
 

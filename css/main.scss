@@ -12,20 +12,24 @@
 @import
   'base/reset';
 
-// Utilities
-@import
-  'utilities/layout';
-
 // Components
 @import
   'components/header',
-  'components/navigation',
   'components/article',
   'components/archives',
   'components/social',
-  'components/buttons',
   'components/footer',
-  'components/color';
+  'components/color',
+  'components/variables',
+  'components/typography',
+  'components/global',
+  'components/navbar',
+  'components/sideNav',
+  'components/icons-material-design',
+  'components/materialbox',
+  'components/cards',
+  'components/preloader',
+  'components/buttons';
 
 // Themes
 @import
@@ -34,6 +38,10 @@
   'themes/grey',
   'themes/orange',
   'themes/purple';
+
+// Utilities
+@import
+  'utilities/layout';
 
 // Vendor
 @import

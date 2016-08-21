@@ -3,22 +3,21 @@
    ========================================================================== */
 
 .c-archives {
-  margin-bottom: 10rem;
+  margin-bottom: 3rem;
 }
 
 .c-archives__year {
-  margin-bottom: 2.5rem;
-  @include fs--heading-1;
+  margin-bottom: 0.5rem;
 }
 
 .c-archives__list {
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.5rem;
   list-style: none;
 }
 
 .c-archives__item {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   border-top: 1px solid #EFF1F3;
   display: -webkit-box;
   display: -webkit-flex;
@@ -37,11 +36,10 @@
           align-items: center;
 
   h3 {
-    @include fs--body;
+
   }
 
   p {
-    @include fs--body;
     color: #515862;
   }
 }

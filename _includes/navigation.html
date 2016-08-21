@@ -1,12 +1,20 @@
-<nav class="c-navigation {% if site.fixedNav == 'true' %}is-fixed{% endif %}">
-
-  <div class="c-navigation__container u-container">
-
-    <span class="c-navigation__logo">
-      < {{ site.title }} />
-    </span>
-    <a class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ "/" | prepend: site.baseurl }}">Home</a>
-    <a class="c-navigation__item {% if page.url == '/portfolio/' %}is-active{% endif %}" href="{{ "/portfolio/" | prepend: site.baseurl }}">Portfolio</a>
-    <a class="c-navigation__item {% if page.url == '/about/' %}is-active{% endif %}" href="{{ "/about/" | prepend: site.baseurl }}">About</a>
-  </div>
-</nav>
+<header class="navbar-fixed" id="header">
+  <nav class="teal lighten-1 {% if site.fixedNav == 'true' %}is-fixed{% endif %}" role="navigation">
+      <div class="nav-wrapper container">
+          <a itemprop="url" id="logo-container" href="http://nickrfer.com" class="brand-logo">
+              < nickrfer />
+          </a>
+          <ul class="right hide-on-med-and-down">
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ " / " | prepend: site.baseurl }}">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/portfolio/' %}is-active{% endif %}" href="{{ " /portfolio/ " | prepend: site.baseurl }}">Portfolio</a></li>
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/about/' %}is-active{% endif %}" href="{{ " /about/ " | prepend: site.baseurl }}">About</a></li>
+              <li><a itemprop="url" class="nav-search" onclick="superSearch.toggle();"><i class="material-icons right nav-search">search</i></a></li>
+          </ul>
+          <ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ " / " | prepend: site.baseurl }}">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/portfolio/' %}is-active{% endif %}" href="{{ " /portfolio/ " | prepend: site.baseurl }}">Portfolio</a></li>
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/about/' %}is-active{% endif %}" href="{{ " /about/ " | prepend: site.baseurl }}">About</a></li>
+              <li><a itemprop="url" class="nav-search" onclick="$('.button-collapse').sideNav('hide');superSearch.toggle();">Pesquisar <i class="material-icons right nav-search">search</i></a></li>
+          </ul><a itemprop="url" href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a></div>
+  </nav>
+</header>
