@@ -30,17 +30,20 @@ codepenUsername: nickrfer
 freecodecampUsername: nickrfer
 
 github_url:  "https://github.com/nickrfer"
+origin:  "https://github.com/nickrfer"
 
 # Build settings
 markdown: kramdown
+destination: public
+source: src
+exclude: ['node_modules']
 
 #theme: purple # green, blue, orange, purple, grey
-theme: blue
 fixedNav: 'true' # true or false
 
 permalink: /:year/:month/:title
 markdown: kramdown
-include: [_pages]
-exclude: [_site, CHANGELOG.md, LICENSE, README.md]
+include: [src/_pages]
+exclude: [src/_site, CHANGELOG.md, LICENSE, README.md]
 sass:
   style: compressed

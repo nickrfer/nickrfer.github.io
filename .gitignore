@@ -1,2 +1,5 @@
 _site
 .sass-cache
+src/assets/bundle.js
+public
+node_modules
