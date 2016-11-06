@@ -42,4 +42,4 @@ permalink: /:year/:month/:title
 include: [src/_pages, src/_sass]
 exclude: [src/_site, node_modules, CHANGELOG.md, LICENSE, README.md]
 sass:
-  style: compressed
+  style: compressed 
