@@ -29,7 +29,8 @@
   'components/materialbox',
   'components/cards',
   'components/preloader',
-  'components/buttons';
+  'components/buttons',
+  'components/grid';
 
 // Themes
 @import
@@ -41,7 +42,8 @@
 
 // Utilities
 @import
-  'utilities/layout';
+  'utilities/layout',
+  'time-line';
 
 // Vendor
 @import

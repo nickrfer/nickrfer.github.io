@@ -1,0 +1,144 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+body{
+    background-color: #f5f5f5;
+}
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.index-title-header{
+	font-size: 2.6em;
+}
+.float-right{
+	float:right;
+}
+.pagination {
+	clear: both;
+}
+	
+.external-link::after{
+	display: inline-block;
+    content: '';
+    color: #005f97;
+    background: url("/svg/icon-arrow.svg");
+    background-size: 100%;
+    margin-left: .313rem;
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.card-teach{
+    position: fixed;
+    height: 250px;
+    width: 250px;
+    display: none;
+    top: 50%;
+    left: 50%;  
+    margin-top: -180px; /* Negative half of height. */
+    margin-left: -130px;
+    z-index: 1;
+}
+.chip-teach{
+    cursor: pointer;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.uppercase{
+    text-transform:uppercase;
+}
+
+.btn-share{
+    margin-left: 3px;
+}
+
+.btn-share-social{
+    display:none;
+}
+
+.card ul{
+    position: absolute;
+    display: table-row;
+    top: -145px;
+    right: 18px;
+}
+
+.text-uppercase{
+    text-transform: uppercase;
+}
+
+/* Info Heading */
+.portfolio-info-heading{
+    display: block;
+    width: 100%;
+    font-weight: 900;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.29);
+}
+.v-align-middle{
+    vertical-align: middle;
+}
+.v-align-middle i{
+    vertical-align: middle;
+}
+.v-align-top{
+    vertical-align: top;
+}
+
+.v-align-top i{
+    vertical-align: top;
+}
+
+/* Controle da Time Line */
+.title-timeline{
+    font-size: 2.28rem;
+    line-height: 110%;
+    margin: 1.14rem 0 0.912rem 0;
+}
+.title-timeline i{
+    font-size: 35px;
+}
+.timeline-item h2{
+    font-size: 1.5rem;
+}
+
+.timeline-item h3{
+    font-size: 1.3rem;
+}
+
+/* Meus trabalhos */
+.jobs{
+    border-top: 3px red solid;
+    margin-top: -50px;
+}
+
+strong{
+    font-weight: 600;
+}
+
+/* Modificações no Search do google */
+table.gsc-search-box td {
+    vertical-align: top !important;
+}
+.cse .gsc-search-button input.gsc-search-button-v2, input.gsc-search-button-v2 {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 10px 10px !important;
+    min-width: 13px !important;
+    margin-top: -10px !important;
+}
+
+.gsib_b{
+    padding: 0px 0px !important;
+}
+

@@ -36,10 +36,10 @@ origin:  "https://github.com/nickrfer"
 markdown: kramdown
 
 #theme: purple # green, blue, orange, purple, grey
-fixedNav: 'true' # true or false
+fixedNav: 'false' # true or false
 
 permalink: /:year/:month/:title
 include: [src/_pages, src/_sass]
 exclude: [src/_site, node_modules, CHANGELOG.md, LICENSE, README.md]
 sass:
-  style: compressed 
+  style: compressed
