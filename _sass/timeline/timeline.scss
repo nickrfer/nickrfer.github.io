@@ -24,10 +24,8 @@ html * {
 body {
 	font: {
 		size: 100%;
-		#family: $primary-font; // variables inside partials > _variables.scss
 	}
 	color: $main-text;
-	#background-color: $background;
 }
 
 a {
@@ -225,6 +223,8 @@ header {
 	padding: 1em;
 	box-shadow: 0 3px 0 darken($background, 5%);
 	@include clearfix;
+	family: $primary-font; // variables inside partials > _variables.scss
+	background-color: $background;
 
 	h2 {
 		color: $color-1;
