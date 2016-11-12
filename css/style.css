@@ -15,3 +15,6 @@
 .list-square {
   list-style-type: square !important;
 }
+p {
+  font-size: 1.25em;
+}

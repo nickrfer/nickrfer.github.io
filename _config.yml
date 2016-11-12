@@ -21,6 +21,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://nickrfer.github.io" # the base hostname & protocol for your site
+future: true
 
 # Social
 githubUsername: nickrfer
@@ -34,6 +35,7 @@ origin:  "https://github.com/nickrfer"
 
 # Build settings
 markdown: kramdown
+livereload: true     # You no longer need to include --livereload
 
 #theme: purple # green, blue, orange, purple, grey
 fixedNav: 'false' # true or false

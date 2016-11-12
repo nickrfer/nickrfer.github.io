@@ -6,7 +6,7 @@
 
 @import 'layout'; // responsive grid and media queries
 
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -24,10 +24,10 @@ html * {
 body {
 	font: {
 		size: 100%;
-		family: $primary-font; // variables inside partials > _variables.scss
+		#family: $primary-font; // variables inside partials > _variables.scss
 	}
 	color: $main-text;
-	background-color: $background;
+	#background-color: $background;
 }
 
 a {
@@ -45,7 +45,7 @@ h1, h2 {
 	font-weight: bold;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
 Modules - reusable parts of our design
 
@@ -63,9 +63,9 @@ Modules - reusable parts of our design
 	}
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 
@@ -381,4 +381,3 @@ header {
 		@include transform(translateX(0));
 	}
 }
-

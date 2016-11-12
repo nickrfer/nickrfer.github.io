@@ -2,6 +2,11 @@
    Archives
    ========================================================================== */
 
+.c-archives__title {
+  padding-top: 3.5rem;
+  color: black;
+}
+
 .c-archives {
   margin-bottom: 3rem;
 }
@@ -11,29 +16,15 @@
 }
 
 .c-archives__list {
+  padding-top: 0.8rem;
   margin-bottom: 0.5rem;
   list-style: none;
 }
 
 .c-archives__item {
-  padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-top: 1px solid #EFF1F3;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  font-size: 1.0rem;
 
   h3 {
 
@@ -41,5 +32,6 @@
 
   p {
     color: #515862;
+    font-size: 1.0rem;
   }
 }

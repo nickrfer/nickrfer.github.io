@@ -1,34 +1,37 @@
 ---
-layout: page
-title: < nickrfer />
+layout: pageIndex
+title: nickrfer
+hidefooter: true
 ---
-
-<div class="grey-text text-darken-2">
-    <p>
-      <img src="https://en.gravatar.com/userimage/102645074/3470dda6368a88a37ef4dc225eecbce4.jpg?size=170" class="circle vcenter responsive-img" alt="Avatar" />
-  </p>
-  <br />
+<div class="center">
   <p>
-      Greetings! I'm Nicolas, Senior Software Engineer, a constant learner and a loving husband and father &hearts; from Brasilia, Brazil. I blog about java and javascript web programming. Here's my <a href="https://drive.google.com/open?id=0B3xp00iBv0Ccc09wUldwNUEyYTA">resume</a>    if you're interested. Feel free to stalk me in any of the social medias presented in the footer. &#128521;</p>
+      <img src="https://en.gravatar.com/userimage/102645074/3470dda6368a88a37ef4dc225eecbce4.jpg?size=180" class="circle center responsive-img" alt="Avatar" />
   </p>
+
+  <div class="grey-text text-darken-1" style="margin-top: 2%;">
+    <p>
+        <span style="font-size: 1.4rem;">
+          Greetings! I'm <span class="grey-text text-darken-2" style="font-weight: bold;">Nicolas Rodrigues Ferreira</span>, <br />
+        </span>
+        Software Engineer, loving husband and father &hearts; from Brazil.<br />
+        I blog about java and javascript web programming.<br />
+        Interested in <a href="https://drive.google.com/open?id=0B3xp00iBv0Ccc09wUldwNUEyYTA">hiring</a> me?
+    </p>
+  </div>
 </div>
 
-<p class="card">
-  </p>
-
-<div class="col s12" style="text-align: center;">&nbsp;</div>
+<h5 class="c-archives__title center">Blog Posts</h5>
 
 {% for post in site.posts  %}
     {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
     {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
 
     {% if forloop.first %}
-        <h4 class="c-archives__year" id="{{ this_year }}-ref">{{this_year}}</h4>
-        <ul class="c-archives__list">
+        <ul class="c-archives__list center">
     {% endif %}
         <li class="c-archives__item">
+            <p>{{ post.date | date: "%B %-d, %Y" }}</p>
             <h5><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h5>
-            <p>{{ post.date | date: "%b %-d, %Y" }}</p>
         </li>
     {% if forloop.last %}
         </ul>
