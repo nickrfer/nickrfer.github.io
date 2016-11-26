@@ -18,3 +18,33 @@
 p {
   font-size: 1.25em;
 }
+.howto-video {
+  width:100%;
+  height:100%;
+}
+.post p {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1.5em !important;
+}
+.post ul li.sub-item {
+  list-style-type: circle !important;
+}
+.post ul {
+  display: block;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 40px;
+}
+.post ul li {
+  list-style-type: disc;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    border: 1px solid #E3EDF3;
+    background-color: #F7FAFB;
+    padding: 2px 4px;
+    font-size: 90%;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+}

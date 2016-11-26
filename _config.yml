@@ -38,7 +38,7 @@ livereload: true     # You no longer need to include --livereload
 fixedNav: 'false' # true or false
 
 permalink: /:year/:month/:title
-include: [src/_pages, src/_sass]
-exclude: [src/_site, node_modules, CHANGELOG.md, LICENSE, README.md]
+include: [_pages, _sass]
+exclude: [_site, node_modules, webpack, webpack.config.js, CHANGELOG.md, LICENSE, README.md]
 sass:
   style: compressed
