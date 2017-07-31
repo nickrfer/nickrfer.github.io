@@ -32,6 +32,7 @@ origin:  "https://github.com/nickrfer"
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
 livereload: true     # You no longer need to include --livereload
 
 #theme: purple # green, blue, orange, purple, grey

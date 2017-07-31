@@ -8,11 +8,10 @@ categories: jekyll update
 <br />
 
 <div class="container post">
+  ![Fast JPA!]({{ site.url }}/img/jpa-performance.jpeg)
   <p>Hello readers. It's been quite a long while!</p>
   <p>In this post, I will share some tips that will help your application
-    perform fast while using JPA, and Hibernate as a JPA provider.
-  </p>
-  <p>JPA can cause quite an overhead if it's not used correctly from the start of the project.
+    perform fast while using JPA, and Hibernate as a JPA provider. JPA can cause quite an overhead if it's not used correctly from the start of the project.
     In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
   </p>
   <p>
@@ -30,31 +29,40 @@ categories: jekyll update
   <p>
     Eager loading happens for @ManyToOne annotated attributes by default, and when declared explicitly with FetchType.EAGER.
     What this means is that every time an entity is retrieved, another select is issued to the database for every eager attribute.
-
+  </p>
+  <p>
     For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
     Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
-
-    "SELECT per.name FROM Person per
-    JOIN FETCH per.addressList adr"
+  </p>
+  <p>
+    `​``
+    SELECT per.name FROM Person per
+    JOIN FETCH per.addressList adr
+    `​``
   </p>
 
   <h5 class="bold">Page the data</h5>
   <p>
     In 99% cenarios where you need to query a big table, you don't have to retrieve all the data.
     That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
-
+  </p>
+  <p>
+    `​``
     Query query = entityManager.createQuery("SELECT per from Person per");
     int pageNumber = 1;
     int pageSize = 10;
     query.setFirstResult((pageNumber - 1) * pageSize);
     query.setMaxResults(pageSize);
     List<Person> personList = query.getResultList();
+    `​``
   </p>
 
   <h5 class="bold">Consider not using 'Select * FROM'</h5>
   <p>
     If you querying a table that has more than 30 attributes, this syntax can slow down the database.
     There's also a huge slow down when one of those attributes is a BLOB or CLOB types. I've seen a page that loaded a BLOB attribute unnecessarily taking 30s to load, to less than 1s after changing the query to select specific attributes.
+  </p>
+  <p>
     In these cases it is preferred that you create a Value Object that will hold specific values from the table.
   </p>
 
@@ -62,8 +70,12 @@ categories: jekyll update
   <p>
     Usually it is better to fetch all the data you need right from the start, using join fetch for example.
     But that's not always possible. But whatever you do, don't query in a loop.
+  </p>
+  <p>
     Try as much as you can to make a query that will fetch all the data (paged if there's too much registers).
     Just be careful of using the IN to fetch de dependencies. Generally IN will slow down the database if used with 100+ registers.
+  </p>
+  <p>
     There are some techniques that are faster than using IN, such as:
     <ul>
       <li>Using a Temporary table;</li>
@@ -75,11 +87,15 @@ categories: jekyll update
   <p>
     The database can do a lot of work for you. So use it in your favor.
     If a process can be optimized to fetch/insert all the data in one or more SQL queries, that would be too slow if done individually in Java code, don't be afraid to use Native Queries.
+  </p>
+  <p>
     For example, a process done in Java like this:
     <ul>
       <li>Iterate over user input;</li>
       <li>For each item, update 10000+ registers and insert the data;</li>
     </ul>
+  </p>
+  <p>
     Could be a lot faster if optimized and done like this:
     <ul>
       <li>Create a trigger on the table that will be responsible for updating the 10000+ registers;</li>
