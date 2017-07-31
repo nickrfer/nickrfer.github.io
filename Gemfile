@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
+gem 'kramdown'
 gem 'rouge'
 gem 'jekyll'
 gem 'github-pages'
