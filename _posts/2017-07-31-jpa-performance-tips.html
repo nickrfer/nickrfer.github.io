@@ -1,0 +1,95 @@
+---
+layout: page
+title:  "JPA Querying Performance Tips"
+date:   2017-07-31 19:20:00 -0500
+categories: jekyll update
+---
+<h4 class="center-align bold">{{ page.title | escape }}</h4>
+<br />
+
+<div class="container post">
+  <p>Hello readers. It's been quite a long while!</p>
+  <p>In this post, I will share some tips that will help your application
+    perform fast while using JPA, and Hibernate as a JPA provider.
+  </p>
+  <p>JPA can cause quite an overhead if it's not used correctly from the start of the project.
+    In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
+  </p>
+  <p>
+    To make sure that querying using JPA performs well, basically it boils down to:
+    <ul>
+      <li>Eager and Lazy Loading;</li>
+      <li>Page the data;</li>
+      <li>Consider not using 'Select * FROM';</li>
+      <li>Don't query in a loop;</li>
+      <li>Don't be afraid to go Native.</li>
+    </ul>
+  </p>
+
+  <h5 class="bold">Eager and Lazy Loading</h5>
+  <p>
+    Eager loading happens for @ManyToOne annotated attributes by default, and when declared explicitly with FetchType.EAGER.
+    What this means is that every time an entity is retrieved, another select is issued to the database for every eager attribute.
+
+    For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
+    Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
+
+    "SELECT per.name FROM Person per
+    JOIN FETCH per.addressList adr"
+  </p>
+
+  <h5 class="bold">Page the data</h5>
+  <p>
+    In 99% cenarios where you need to query a big table, you don't have to retrieve all the data.
+    That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
+
+    Query query = entityManager.createQuery("SELECT per from Person per");
+    int pageNumber = 1;
+    int pageSize = 10;
+    query.setFirstResult((pageNumber - 1) * pageSize);
+    query.setMaxResults(pageSize);
+    List<Person> personList = query.getResultList();
+  </p>
+
+  <h5 class="bold">Consider not using 'Select * FROM'</h5>
+  <p>
+    If you querying a table that has more than 30 attributes, this syntax can slow down the database.
+    There's also a huge slow down when one of those attributes is a BLOB or CLOB types. I've seen a page that loaded a BLOB attribute unnecessarily taking 30s to load, to less than 1s after changing the query to select specific attributes.
+    In these cases it is preferred that you create a Value Object that will hold specific values from the table.
+  </p>
+
+  <h5 class="bold">Don't query in a loop</h5>
+  <p>
+    Usually it is better to fetch all the data you need right from the start, using join fetch for example.
+    But that's not always possible. But whatever you do, don't query in a loop.
+    Try as much as you can to make a query that will fetch all the data (paged if there's too much registers).
+    Just be careful of using the IN to fetch de dependencies. Generally IN will slow down the database if used with 100+ registers.
+    There are some techniques that are faster than using IN, such as:
+    <ul>
+      <li>Using a Temporary table;</li>
+      <li>Using XMLTable (if the database supports it).</li>
+    </ul>
+  </p>
+
+  <h5 class="bold">Don't be afraid to go Native</h5>
+  <p>
+    The database can do a lot of work for you. So use it in your favor.
+    If a process can be optimized to fetch/insert all the data in one or more SQL queries, that would be too slow if done individually in Java code, don't be afraid to use Native Queries.
+    For example, a process done in Java like this:
+    <ul>
+      <li>Iterate over user input;</li>
+      <li>For each item, update 10000+ registers and insert the data;</li>
+    </ul>
+    Could be a lot faster if optimized and done like this:
+    <ul>
+      <li>Create a trigger on the table that will be responsible for updating the 10000+ registers;</li>
+      <li>Create a temporary table and insert all the input registers in it;</li>
+      <li>Call a command that does a 'INSERT SELECT' from the temporary table to the definitive one;</li>
+      <li>Since only one command was issued, the trigger will be activated only once, making the operation most likely faster;</li>
+    </ul>
+  </p>
+
+  <h5 class="bold">Conclusion</h5>
+  <p>As stated in this article, JPA can be used without performance bottlenecks, if the correct use of it is enforced.
+    I hope the information here presented was useful!</p>
+</div>
