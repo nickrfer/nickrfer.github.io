@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+{% if page.comments %} • <a href="https://nickrfer.github.io{{ page.url }}#disqus_thread">0 Comments</a>{% endif %}
 <article class="c-article">
   <div class="row">
     <div class="col s12" style="text-align: center;">&nbsp;</div>
@@ -10,3 +11,4 @@ layout: default
     {{ content }}
   </div>
 </article>
+{% include disqus.html %}
