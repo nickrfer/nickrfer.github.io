@@ -56,7 +56,7 @@ p {
   color: grey !important;
 }
 .highlight {
-  background-color: #F7FAFB !important;
+  background-color: none !important;
   border: none !important;
   padding-left: 2.5rem !important;
   padding-right: 2.5rem !important;

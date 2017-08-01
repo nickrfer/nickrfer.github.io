@@ -35,8 +35,9 @@ categories: jpa query performance tips
     For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
     Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
   </p>
-    {% highlight sql %}SELECT per.name FROM Person per
-    JOIN FETCH per.addressList adr
+    {% highlight sql %}
+SELECT per.name FROM Person per
+JOIN FETCH per.addressList adr
     {% endhighlight %}
 
   <h5 class="bold">Page the data</h5>
@@ -44,12 +45,13 @@ categories: jpa query performance tips
     In 99% cenarios where you need to query a big table, you don't have to retrieve all the data.
     That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
   </p>
-    {% highlight java %}Query query = entityManager.createQuery("SELECT per from Person per");
-    int pageNumber = 1;
-    int pageSize = 10;
-    query.setFirstResult((pageNumber - 1) * pageSize);
-    query.setMaxResults(pageSize);
-    List<Person> personList = query.getResultList();
+    {% highlight java %}
+Query query = entityManager.createQuery("SELECT per from Person per");
+int pageNumber = 1;
+int pageSize = 10;
+query.setFirstResult((pageNumber - 1) * pageSize);
+query.setMaxResults(pageSize);
+List<Person> personList = query.getResultList();
     {% endhighlight %}
 
   <h5 class="bold">Consider not using 'Select * FROM'</h5>
