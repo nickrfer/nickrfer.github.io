@@ -39,10 +39,10 @@ p {
 .post ul li {
   list-style-type: disc;
 }
-code {
+/*code {
   background-color: none !important;
   border: none !important;
-}
+}*/
 .c-article__main {
   color: grey !important;
 }
@@ -54,4 +54,10 @@ h5 {
 }
 p {
   color: grey !important;
+}
+.highlight {
+  background-color: #F7FAFB !important;
+  border: none !important;
+  padding-left: 2.5rem !important;
+  padding-right: 2.5rem !important;
 }
