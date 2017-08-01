@@ -4,7 +4,8 @@
 .highlight {
   margin-left: -2.5rem;
   width: calc(100% + 5rem);
-  padding: 2.5rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 
   .highlighter-rouge & {
     //background: #eef;

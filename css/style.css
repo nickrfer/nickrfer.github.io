@@ -39,17 +39,8 @@ p {
 .post ul li {
   list-style-type: disc;
 }
-code {
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    border: 1px solid #E3EDF3;
-    background-color: #F7FAFB;
-    padding: 2px 4px;
-    font-size: 90%;
-    border-radius: 4px;
-    -webkit-font-smoothing: antialiased;
-}
 .highlight {
-  background-color: none !important;
+  background-color: #F7FAFB !important;
   border: none !important;
 }
 code {
