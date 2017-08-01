@@ -39,7 +39,6 @@ categories: jpa query performance tips
 SELECT per.name FROM Person per
 JOIN FETCH per.addressList adr
     {% endhighlight %}
-
   <h5 class="bold">Page the data</h5>
   <p>
     In 99% cenarios where you need to query a big table, you don't have to retrieve all the data.
@@ -53,7 +52,6 @@ query.setFirstResult((pageNumber - 1) * pageSize);
 query.setMaxResults(pageSize);
 List<Person> personList = query.getResultList();
     {% endhighlight %}
-
   <h5 class="bold">Consider not using 'Select * FROM'</h5>
   <p>
     If you querying a table that has more than 30 attributes, this syntax can slow down the database.
