@@ -35,7 +35,7 @@ categories: jekyll update
     Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
   </p>
   <p>
-    `​``
+    ``` sql
     SELECT per.name FROM Person per
     JOIN FETCH per.addressList adr
     `​``
@@ -47,7 +47,7 @@ categories: jekyll update
     That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
   </p>
   <p>
-    `​``
+    ``` java
     Query query = entityManager.createQuery("SELECT per from Person per");
     int pageNumber = 1;
     int pageSize = 10;
