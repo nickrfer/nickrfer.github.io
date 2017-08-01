@@ -54,6 +54,12 @@ code {
 .c-article__main {
   color: grey !important;
 }
-* {
+h4 {
+  color: grey !important;
+}
+h5 {
+  color: grey !important;
+}
+p {
   color: grey !important;
 }
