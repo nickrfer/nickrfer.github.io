@@ -49,7 +49,12 @@ code {
     -webkit-font-smoothing: antialiased;
 }
 .highlight {
-  background-color: grey !important;
+  background-color: none !important;
+  border: none !important;
+}
+code {
+  background-color: none !important;
+  border: none !important;
 }
 .c-article__main {
   color: grey !important;
