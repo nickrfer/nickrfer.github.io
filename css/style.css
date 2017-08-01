@@ -51,6 +51,9 @@ code {
 .highlight {
   background-color: grey !important;
 }
-.c-article__main>* {
+.c-article__main {
+  color: grey !important;
+}
+* {
   color: grey !important;
 }
