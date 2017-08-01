@@ -55,3 +55,9 @@ h5 {
 p {
   color: grey !important;
 }
+.card-title h5 {
+  color: white !important;
+}
+.card-content p {
+  color: white !important;
+}
