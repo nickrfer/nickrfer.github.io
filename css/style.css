@@ -39,10 +39,6 @@ p {
 .post ul li {
   list-style-type: disc;
 }
-.highlight {
-  background-color: #F7FAFB !important;
-  border: none !important;
-}
 code {
   background-color: none !important;
   border: none !important;

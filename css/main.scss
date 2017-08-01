@@ -116,6 +116,12 @@ p {
 .post ul li {
   list-style-type: disc;
 }
+.highlight {
+  background-color: #F7FAFB !important;
+  border: none !important;
+  padding-left: 2.5rem !important;
+  padding-right: 2.5rem !important;
+}
 /*code .timeline-code {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     border: 1px solid #E3EDF3;
