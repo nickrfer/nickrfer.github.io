@@ -4,12 +4,13 @@ title:  "JPA Querying Performance Tips"
 date:   2017-07-31 19:20:00 -0500
 categories: jekyll update
 ---
-<div class="container post">
-  <p><img src="{{ site.url }}/img/jpa-performance.jpeg" />
-  <h4 class="center-align bold">{{ page.title | escape }}</h4>
-  <br />
+<h4 class="center-align bold">{{ page.title | escape }}</h4>
+<br />
 
+<div class="container post">
   <p>Hello readers. It's been quite a long while!</p>
+  <br />
+  <p><img src="{{ site.url }}/img/jpa-performance.jpeg" />
   <p>In this post, I will share some tips that will help your application
     perform fast while using JPA, and Hibernate as a JPA provider. JPA can cause quite an overhead if it's not used correctly from the start of the project.
     In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
@@ -34,28 +35,22 @@ categories: jekyll update
     For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
     Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
   </p>
-  <p>
-    {% highlight sql %}
-    SELECT per.name FROM Person per
+    {% highlight sql %}SELECT per.name FROM Person per
     JOIN FETCH per.addressList adr
     {% endhighlight %}
-  </p>
 
   <h5 class="bold">Page the data</h5>
   <p>
     In 99% cenarios where you need to query a big table, you don't have to retrieve all the data.
     That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
   </p>
-  <p>
-    {% highlight java %}
-    Query query = entityManager.createQuery("SELECT per from Person per");
+    {% highlight java %}Query query = entityManager.createQuery("SELECT per from Person per");
     int pageNumber = 1;
     int pageSize = 10;
     query.setFirstResult((pageNumber - 1) * pageSize);
     query.setMaxResults(pageSize);
     List<Person> personList = query.getResultList();
     {% endhighlight %}
-  </p>
 
   <h5 class="bold">Consider not using 'Select * FROM'</h5>
   <p>
