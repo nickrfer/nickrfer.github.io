@@ -30,7 +30,7 @@ hidefooter: true
     {% endif %}
         <li class="c-archives__item">
             <p>{{ post.date | date: "%B %-d, %Y" }}</p>
-            <h5><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h5>
+            <h5><a href="{{ post.url | prepend: site.baseurl }}#disqus_thread">{{ post.title }}</a></h5>
         </li>
     {% if forloop.last %}
         </ul>
