@@ -32,7 +32,8 @@ origin:  "https://github.com/nickrfer"
 
 # Build settings
 markdown: kramdown
-  highlighter: rouge
+input: GFM
+highlighter: rouge
 
 livereload: true     # You no longer need to include --livereload
 
