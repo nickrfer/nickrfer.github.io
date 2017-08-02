@@ -32,6 +32,18 @@
   </div>
 </footer>
 
+<footer>
+    <a class="active" href="#">{{ site.languageNames[site.lang] }}</a>
+    {% for lang in site.languageNames %}
+    {% if lang[0] == site.lang %} {% continue %} {% endif %}
+    {% if page.namespace %}
+    <a href="{% tl {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
+    {% else %}
+    <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
+    {% endif %}
+    {% endfor %}
+</footer>
+
 <script src="{{"/js/jquery-2.1.1.min.js" | prepend: site.github.baseurl}}"></script>
 <link rel="stylesheet" href="{{ "/fonts/material-icons.css" | prepend: site.baseurl }}">
 
@@ -48,3 +60,10 @@
 <script src="{{"/js/plugins/detect-mobile.js" | prepend: site.github.baseurl}}"></script>
 <script src="{{"/js/bundle.js" | prepend: site.github.baseurl}}" charset="utf-8"></script>
 <script id="dsq-count-scr" src="//nickrfer.disqus.com/count.js" async></script>
+<script>
+    var lang = navigator.language || navigator.userLanguage;
+    if (lang.indexOf('pt') == 0)
+        window.location = '/pt/';
+    else
+        window.location = '/en/';
+</script>

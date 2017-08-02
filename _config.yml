@@ -45,3 +45,12 @@ include: [_pages, _sass]
 exclude: [_site, node_modules, webpack, webpack.config.js, CHANGELOG.md, LICENSE, README.md]
 sass:
   style: compressed
+
+gems: 
+  - jekyll-multiple-languages-plugin
+languages: ["en", "pt"]
+exclude_from_localizations: ["js", "img", "css", "assets", "CNAME"]
+defaultLang: en
+languageNames:
+  en: English
+  pt: Português
