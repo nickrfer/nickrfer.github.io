@@ -32,38 +32,19 @@
   </div>
 </footer>
 
-<footer>
-    <a class="active" href="#">{{ site.languageNames[site.lang] }}</a>
-    {% for lang in site.languageNames %}
-    {% if lang[0] == site.lang %} {% continue %} {% endif %}
-    {% if page.namespace %}
-    <a href="{% tl {{ page.namespace }} {{ lang[0] }} %}">{{ lang[1] }}</a>
-    {% else %}
-    <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
-    {% endif %}
-    {% endfor %}
-</footer>
-
-<script src="{{"/js/jquery-2.1.1.min.js" | prepend: site.github.baseurl}}"></script>
-<link rel="stylesheet" href="{{ "/fonts/material-icons.css" | prepend: site.baseurl }}">
+<script src="{{"/js/jquery-2.1.1.min.js" | prepend: site.baseurl_root}}"></script>
+<link rel="stylesheet" href="{{ "/fonts/material-icons.css" | prepend: site.baseurl_root }}">
 
 <!-- build:jsa -->
-<script src="{{"/js/materialize.min.js" | prepend: site.github.baseurl}}"></script>
-<script src="{{"/js/init.js" | prepend: site.github.baseurl}}"></script>
-<script src="{{"/js/plugins/smooth-scroll.js" | prepend: site.github.baseurl}}"></script>
-<script type="text/javascript" src="{{ "/js/plugins/super-search.js" | prepend: site.github.baseurl }}"></script>
-<script src="{{"/js/plugins/jquery.appear.js" | prepend: site.github.baseurl}}"></script>
-<script src="{{"/js/plugins/skills.js" | prepend: site.github.baseurl}}"></script>
-<script src="{{"/js/timeline.js" | prepend: site.github.baseurl}}"></script>
-<script src="{{"/js/modernizr.js" | prepend: site.github.baseurl}}"></script>
+<script src="{{"/js/materialize.min.js" | prepend: site.baseurl_root}}"></script>
+<script src="{{"/js/init.js" | prepend: site.baseurl_root}}"></script>
+<script src="{{"/js/plugins/smooth-scroll.js" | prepend: site.baseurl_root}}"></script>
+<script type="text/javascript" src="{{ "/js/plugins/super-search.js" | prepend: site.baseurl_root }}"></script>
+<script src="{{"/js/plugins/jquery.appear.js" | prepend: site.baseurl_root}}"></script>
+<script src="{{"/js/plugins/skills.js" | prepend: site.baseurl_root}}"></script>
+<script src="{{"/js/timeline.js" | prepend: site.baseurl_root}}"></script>
+<script src="{{"/js/modernizr.js" | prepend: site.baseurl_root}}"></script>
 <!-- endbuild -->
-<script src="{{"/js/plugins/detect-mobile.js" | prepend: site.github.baseurl}}"></script>
-<script src="{{"/js/bundle.js" | prepend: site.github.baseurl}}" charset="utf-8"></script>
+<script src="{{"/js/plugins/detect-mobile.js" | prepend: site.baseurl_root}}"></script>
+<script src="{{"/js/bundle.js" | prepend: site.baseurl_root}}" charset="utf-8"></script>
 <script id="dsq-count-scr" src="//nickrfer.disqus.com/count.js" async></script>
-<script>
-    var lang = navigator.language || navigator.userLanguage;
-    if (lang.indexOf('pt') == 0)
-        window.location = '/pt/';
-    else
-        window.location = '/en/';
-</script>

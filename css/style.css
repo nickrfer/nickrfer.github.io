@@ -61,3 +61,16 @@ p {
 .card-content p {
   color: white !important;
 }
+.i8n-flags {
+  position: absolute;
+}
+@media screen and (min-width: 1000px) {
+    .i8n-flags {
+        margin-left: 20em;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .i8n-flags {
+        left: 80%;
+    }
+}

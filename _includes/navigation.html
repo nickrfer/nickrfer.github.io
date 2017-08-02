@@ -4,6 +4,13 @@
           <a itemprop="url" id="logo-container" href="http://nickrfer.com" class="brand-logo">
               nickrfer
           </a>
+          <div class="i8n-flags">
+            {% if site.lang == 'en' %} 
+            <a class="c-navigation__item" href="{{ site.baseurl_root }}/pt/"><img src="{{ site.baseurl_root }}/img/icons/flag_pt.png" /></a>
+            {% else %}
+            <a class="c-navigation__item" href="{{ site.baseurl_root }}/"><img src="{{ site.baseurl_root }}/img/icons/flag_en.png" /></a>
+            {% endif %}
+          </div>
           <ul class="right hide-on-med-and-down">
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ " / " | prepend: site.baseurl }}">Home</a></li>
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/portfolio/' %}is-active{% endif %}" href="{{ " /portfolio/ " | prepend: site.baseurl }}">Portfolio</a></li>
@@ -13,6 +20,8 @@
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ " / " | prepend: site.baseurl }}">Home</a></li>
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/portfolio/' %}is-active{% endif %}" href="{{ " /portfolio/ " | prepend: site.baseurl }}">Portfolio</a></li>
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/vita/' %}is-active{% endif %}" href="{{ " /vita/ " | prepend: site.baseurl }}">Vita</a></li>
-          </ul><a itemprop="url" href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a></div>
+          </ul><a itemprop="url" href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+          </div>
   </nav>
 </header>
