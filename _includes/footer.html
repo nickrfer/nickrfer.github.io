@@ -37,7 +37,6 @@
     {% for lang in site.languageNames %}
     {% if lang[0] == site.lang %} {% continue %} {% endif %}
     <a href="{{ site.baseurl_root }}/{{ lang[0] }}/">{{ lang[1] }}</a>
-    {% endif %}
     {% endfor %}
 </footer>
 
