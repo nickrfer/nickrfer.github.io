@@ -5,50 +5,50 @@
     <description>Greetings! This is a passionate Software Engineer's personal portfolio, and blog about java and javascript website.</description>
     <link>http://nickrfer.com/pt/</link>
     <atom:link href="http://nickrfer.com/pt/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 02 Aug 2017 22:40:04 -0300</pubDate>
-    <lastBuildDate>Wed, 02 Aug 2017 22:40:04 -0300</lastBuildDate>
+    <pubDate>Wed, 02 Aug 2017 23:18:21 -0300</pubDate>
+    <lastBuildDate>Wed, 02 Aug 2017 23:18:21 -0300</lastBuildDate>
     <generator>Jekyll v3.4.5</generator>
     
       <item>
-        <title>JPA Querying Performance Tips</title>
-        <description>&lt;h4 class=&quot;center-align bold&quot;&gt;JPA Querying Performance Tips&lt;/h4&gt;
+        <title>Dicas para realizar consultas com JPA com Performance</title>
+        <description>&lt;h4 class=&quot;center-align bold&quot;&gt;Dicas para realizar consultas com JPA com Performance&lt;/h4&gt;
 &lt;h6 class=&quot;center-align bold&quot;&gt;July 31, 2017&lt;/h6&gt;
 &lt;br /&gt;
 
 &lt;div class=&quot;container post&quot;&gt;
   &lt;p&gt;&lt;img src=&quot;http://nickrfer.com/img/jpa-performance.jpeg&quot; /&gt;
-  &lt;p&gt;Hello readers. It's been quite a while!&lt;/p&gt;
-  &lt;p&gt;In this post, I will share some tips that will help your application
-    perform fast while using JPA, and Hibernate as a JPA provider. JPA can cause quite an overhead if it's not used correctly from the start of the project.
-    In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
+  &lt;p&gt;Olá leitores. Faz um tempinho que não posto!&lt;/p&gt;
+  &lt;p&gt;Neste artigo irei compartilhar algumas dias que irão ajudar sua aplicação a ter uma performance mais rápida usando JPA, 
+    e Hibernate como provedor da especificação. JPA pode causar bastante dor de cabeça se não for usado da forma correta desde o início do projeto.
+    Em algumas empresas, este framework conseguiu uma reputação tão ruim ao ponto de que muitas operações acabam tendo que ser feita utilizar JDBC puro.
   &lt;/p&gt;
   &lt;p&gt;
-    To make sure that querying using JPA performs well, basically it boils down to:
+    Para garantir que consultas com JPA irão ter boa performance, basicamente precisamos ter os seguintes pontos em mente:
     &lt;ul&gt;
-      &lt;li&gt;Eager and Lazy Loading;&lt;/li&gt;
-      &lt;li&gt;Page the data;&lt;/li&gt;
-      &lt;li&gt;Consider not using 'Select * FROM';&lt;/li&gt;
-      &lt;li&gt;Don't query in a loop;&lt;/li&gt;
-      &lt;li&gt;Don't be afraid to go Native.&lt;/li&gt;
+      &lt;li&gt;Carregamento Eager e Lazy;&lt;/li&gt;
+      &lt;li&gt;Paginação de dados;&lt;/li&gt;
+      &lt;li&gt;Considere não utilizar 'Select * FROM';&lt;/li&gt;
+      &lt;li&gt;Não consulte dentro de um loop;&lt;/li&gt;
+      &lt;li&gt;Não tenha medo de usar SQL Nativo.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/p&gt;
 
-  &lt;h5 class=&quot;bold&quot;&gt;Eager and Lazy Loading&lt;/h5&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Carregamento Eager e Lazy&lt;/h5&gt;
   &lt;p&gt;
-    Eager loading happens for @ManyToOne annotated attributes by default, and when declared explicitly with FetchType.EAGER.
-    What this means is that every time an entity is retrieved, another select is issued to the database for every eager attribute.
+    Carregamento eager acontece para atributos anotados com @ManyToOne por padrão, e quando explicitamente declarados com FetchType.EAGER.
+    O que isto significa é que toda vez que uma entidade é recuperada do banco, outro SELECT será disparado para cada atributo eager.
   &lt;/p&gt;
   &lt;p&gt;
-    For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
-    Whenever I need to load the lazy attribute, I use the &quot;fetch&quot; keyword, and in some cases a seperate Query can be issued as well. For example:
+    Por este motivo, eu sempre utilizo as anotações @OneToMany and @ManyToOne com FetchType.LAZY.
+    Quando eu preciso carregar o atributo lazy, utilizo a palavra-chave &quot;fetch&quot;, e em alguns uma Query à parte pode ser disparada também. Por exemplo:
   &lt;/p&gt;
     &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FETCH&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addressList&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adr&lt;/span&gt;
     &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-  &lt;h5 class=&quot;bold&quot;&gt;Page the data&lt;/h5&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Paginação de dados&lt;/h5&gt;
   &lt;p&gt;
-    In 99% of the cases where you need to query a big table, you don't have to retrieve all the data.
-    That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
+    Em 99% dos casos em que você precisa carregar dados de uma tabela com muitos registros, você não precisa recuperar tudo.
+    Dito isso, a não ser que você esteja consultando uma tabela pequena que garante que não haverá crescimento exponencial, pagine sua query utilizando a seguinte sintaxe sempre que possível:
   &lt;/p&gt;
     &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Query&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entityManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SELECT per from Person per&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -57,57 +57,60 @@
 &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setMaxResults&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;personList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getResultList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
     &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-  &lt;h5 class=&quot;bold&quot;&gt;Consider not using 'Select * FROM'&lt;/h5&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Considere não utilizar 'Select * FROM'&lt;/h5&gt;
   &lt;p&gt;
-    If you querying a table that has more than 30 attributes, this syntax can slow down the database.
-    There's also a huge slow down when one of those attributes is a BLOB or CLOB types. I've seen a page that loaded a BLOB attribute unnecessarily taking 30s to load, to less than 1s after changing the query to select specific attributes.
+    Se você está consultando uma tabela que possui mais de 30 atributos, esta sintaxe pode causar lentidão no banco.
+    Também pode ocorrer uma grande lentidão se algum destes atributos forem do tipo BLOB ou CLOB. Eu já vi uma página
+    que carregava um atributo BLOB demorar 30 segundos para carregar, para menos de um segundo após a query ser alterada para carregar atributos específicos.
   &lt;/p&gt;
   &lt;p&gt;
-    In these cases it is preferred that you create a Value Object that will hold specific values from the table.
+    Nestes casos é preferível que você crie um VO (Value Object) que irá conter os atributos específicos da tabela necessários para sua funcionalidade.
   &lt;/p&gt;
 
-  &lt;h5 class=&quot;bold&quot;&gt;Don't query in a loop&lt;/h5&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Não consulte dentro de um loop&lt;/h5&gt;
   &lt;p&gt;
-    Usually it is better to fetch all the data you need right from the start, using join fetch for example.
-    But that's not always possible. But whatever you do, don't query in a loop.
+    Geralmente é melhor carregar todos os dados em um comando só, utilizando JOIN FETCH por exemplo.
+    Porém, isso nem sempre é possível. Mas independente do que você fizer, não consulte dentro de um loop.
   &lt;/p&gt;
   &lt;p&gt;
-    Try as much as you can to make a query that will fetch all the data (paged if there's too much registers).
-    Just be careful of using the IN to fetch de dependencies. Generally IN will slow down the database if used with 100+ registers.
+    Tente ao máximo criar a query que irá recuperar todos os dados (podendo ser páginada se forem muitos registros).
+    Só tome cuidado na utilização do operador IN para recuperar dependências. O comando IN costuma causar lentidão no banco se utilizado
+    com mais de 100 registros.
   &lt;/p&gt;
   &lt;p&gt;
-    There are some techniques that are faster than using IN, such as:
+    Existem algumas técnicas que são mais rápidas do que utilizar IN, como:
     &lt;ul&gt;
-      &lt;li&gt;Using a Temporary table;&lt;/li&gt;
-      &lt;li&gt;Using XMLTable (if the database supports it).&lt;/li&gt;
+      &lt;li&gt;Criar uma tabela temporária com os parâmetros do IN;&lt;/li&gt;
+      &lt;li&gt;Utilizar XMLTable para passar os valores que seriam passados no IN (se o banco possuir suporte).&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/p&gt;
 
-  &lt;h5 class=&quot;bold&quot;&gt;Don't be afraid to go Native&lt;/h5&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Não tenha medo de usar SQL Nativo&lt;/h5&gt;
   &lt;p&gt;
-    The database can do a lot of work for you. So use it in your favor.
-    If a process can be optimized to fetch/insert all the data in one or more SQL queries, that would be too slow if done individually in Java code, don't be afraid to use Native Queries.
+    O banco de dados pode otimizar muito o seu processo. Então utilize-o em seu favor.
+    Se o processo pode ser otimizado para recuperar/inserir todos os dados em um ou mais comandos SQLs, que seriam mais
+    lentos se executados de individualmente no código Java, não tenha medo de usar SQL Nativo.
   &lt;/p&gt;
   &lt;p&gt;
-    For example, a process done in Java like this:
+    Por exemplo, um processo feito no Java dessa forma:
     &lt;ul&gt;
-      &lt;li&gt;Iterate over user input;&lt;/li&gt;
-      &lt;li&gt;For each item, update 10000+ registers and insert the data;&lt;/li&gt;
+      &lt;li&gt;Iterar o input passado pelo usuário;&lt;/li&gt;
+      &lt;li&gt;Para cada item, atualizar mais de 10000 registros e inserir os dados;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/p&gt;
   &lt;p&gt;
-    Could be a lot faster if optimized and done like this:
+    Poderia ficar bem mais rápido e otimizado se feito desta forma:
     &lt;ul&gt;
-      &lt;li&gt;Create a trigger on the table that will be responsible for updating the 10000+ registers;&lt;/li&gt;
-      &lt;li&gt;Create a temporary table and insert all the input registers in it;&lt;/li&gt;
-      &lt;li&gt;Call a command that does a 'INSERT SELECT' from the temporary table to the definitive one;&lt;/li&gt;
-      &lt;li&gt;Since only one command was issued, the trigger will be activated only once, making the operation most likely faster;&lt;/li&gt;
+      &lt;li&gt;Criar uma trigger em uma tabela que será responsável por atualizar os 10000 registros;&lt;/li&gt;
+      &lt;li&gt;Criar uma tabela temporária e inserir todos os dados nela;&lt;/li&gt;
+      &lt;li&gt;Executar um comando que efetua um 'INSERT SELECT' da tabela temporária para a definitiva;&lt;/li&gt;
+      &lt;li&gt;Como somente um comando foi disparado, a trigger será ativada somente uma vez, fazendo com que a operação tenha muita chance de se tornar muito mais rápida;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/p&gt;
 
-  &lt;h5 class=&quot;bold&quot;&gt;Conclusion&lt;/h5&gt;
-  &lt;p&gt;As stated in this article, JPA can be used without performance bottlenecks, if the correct use of it is enforced.
-    I hope the information here presented was useful!&lt;/p&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Conclusão&lt;/h5&gt;
+  &lt;p&gt;Conforme descrito neste artigo, JPA pode ser usado sem que hajam problemas de performance, se o uso correto do mesmo for reforçado.
+    Eu espero que a informação apresentada aqui tenha sido útil. Até a próxima!&lt;/p&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 31 Jul 2017 21:20:00 -0300</pubDate>
@@ -126,8 +129,8 @@
       </item>
     
       <item>
-        <title>Code Review With Codebrag</title>
-        <description>&lt;h4 class=&quot;center-align bold&quot;&gt;Code Review With Codebrag&lt;/h4&gt;
+        <title>Revisão de código com Codebrag</title>
+        <description>&lt;h4 class=&quot;center-align bold&quot;&gt;Revisão de código com Codebrag&lt;/h4&gt;
 &lt;br /&gt;
 
 &lt;div class=&quot;container post&quot;&gt;
