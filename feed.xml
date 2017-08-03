@@ -5,9 +5,211 @@
     <description>Greetings! This is a passionate Software Engineer's personal portfolio, and blog about java and javascript website.</description>
     <link>http://nickrfer.com/</link>
     <atom:link href="http://nickrfer.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 02 Aug 2017 22:27:19 -0300</pubDate>
-    <lastBuildDate>Wed, 02 Aug 2017 22:27:19 -0300</lastBuildDate>
+    <pubDate>Wed, 02 Aug 2017 22:39:54 -0300</pubDate>
+    <lastBuildDate>Wed, 02 Aug 2017 22:39:54 -0300</lastBuildDate>
     <generator>Jekyll v3.4.5</generator>
+    
+      <item>
+        <title>JPA Querying Performance Tips</title>
+        <description>&lt;h4 class=&quot;center-align bold&quot;&gt;JPA Querying Performance Tips&lt;/h4&gt;
+&lt;h6 class=&quot;center-align bold&quot;&gt;July 31, 2017&lt;/h6&gt;
+&lt;br /&gt;
+
+&lt;div class=&quot;container post&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;http://nickrfer.com/img/jpa-performance.jpeg&quot; /&gt;
+  &lt;p&gt;Hello readers. It's been quite a while!&lt;/p&gt;
+  &lt;p&gt;In this post, I will share some tips that will help your application
+    perform fast while using JPA, and Hibernate as a JPA provider. JPA can cause quite an overhead if it's not used correctly from the start of the project.
+    In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
+  &lt;/p&gt;
+  &lt;p&gt;
+    To make sure that querying using JPA performs well, basically it boils down to:
+    &lt;ul&gt;
+      &lt;li&gt;Eager and Lazy Loading;&lt;/li&gt;
+      &lt;li&gt;Page the data;&lt;/li&gt;
+      &lt;li&gt;Consider not using 'Select * FROM';&lt;/li&gt;
+      &lt;li&gt;Don't query in a loop;&lt;/li&gt;
+      &lt;li&gt;Don't be afraid to go Native.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/p&gt;
+
+  &lt;h5 class=&quot;bold&quot;&gt;Eager and Lazy Loading&lt;/h5&gt;
+  &lt;p&gt;
+    Eager loading happens for @ManyToOne annotated attributes by default, and when declared explicitly with FetchType.EAGER.
+    What this means is that every time an entity is retrieved, another select is issued to the database for every eager attribute.
+  &lt;/p&gt;
+  &lt;p&gt;
+    For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
+    Whenever I need to load the lazy attribute, I use the &quot;fetch&quot; keyword, and in some cases a seperate Query can be issued as well. For example:
+  &lt;/p&gt;
+    &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FETCH&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addressList&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adr&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Page the data&lt;/h5&gt;
+  &lt;p&gt;
+    In 99% of the cases where you need to query a big table, you don't have to retrieve all the data.
+    That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
+  &lt;/p&gt;
+    &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Query&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entityManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createQuery&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SELECT per from Person per&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFirstResult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pageNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setMaxResults&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;personList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getResultList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+  &lt;h5 class=&quot;bold&quot;&gt;Consider not using 'Select * FROM'&lt;/h5&gt;
+  &lt;p&gt;
+    If you querying a table that has more than 30 attributes, this syntax can slow down the database.
+    There's also a huge slow down when one of those attributes is a BLOB or CLOB types. I've seen a page that loaded a BLOB attribute unnecessarily taking 30s to load, to less than 1s after changing the query to select specific attributes.
+  &lt;/p&gt;
+  &lt;p&gt;
+    In these cases it is preferred that you create a Value Object that will hold specific values from the table.
+  &lt;/p&gt;
+
+  &lt;h5 class=&quot;bold&quot;&gt;Don't query in a loop&lt;/h5&gt;
+  &lt;p&gt;
+    Usually it is better to fetch all the data you need right from the start, using join fetch for example.
+    But that's not always possible. But whatever you do, don't query in a loop.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Try as much as you can to make a query that will fetch all the data (paged if there's too much registers).
+    Just be careful of using the IN to fetch de dependencies. Generally IN will slow down the database if used with 100+ registers.
+  &lt;/p&gt;
+  &lt;p&gt;
+    There are some techniques that are faster than using IN, such as:
+    &lt;ul&gt;
+      &lt;li&gt;Using a Temporary table;&lt;/li&gt;
+      &lt;li&gt;Using XMLTable (if the database supports it).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/p&gt;
+
+  &lt;h5 class=&quot;bold&quot;&gt;Don't be afraid to go Native&lt;/h5&gt;
+  &lt;p&gt;
+    The database can do a lot of work for you. So use it in your favor.
+    If a process can be optimized to fetch/insert all the data in one or more SQL queries, that would be too slow if done individually in Java code, don't be afraid to use Native Queries.
+  &lt;/p&gt;
+  &lt;p&gt;
+    For example, a process done in Java like this:
+    &lt;ul&gt;
+      &lt;li&gt;Iterate over user input;&lt;/li&gt;
+      &lt;li&gt;For each item, update 10000+ registers and insert the data;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    Could be a lot faster if optimized and done like this:
+    &lt;ul&gt;
+      &lt;li&gt;Create a trigger on the table that will be responsible for updating the 10000+ registers;&lt;/li&gt;
+      &lt;li&gt;Create a temporary table and insert all the input registers in it;&lt;/li&gt;
+      &lt;li&gt;Call a command that does a 'INSERT SELECT' from the temporary table to the definitive one;&lt;/li&gt;
+      &lt;li&gt;Since only one command was issued, the trigger will be activated only once, making the operation most likely faster;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/p&gt;
+
+  &lt;h5 class=&quot;bold&quot;&gt;Conclusion&lt;/h5&gt;
+  &lt;p&gt;As stated in this article, JPA can be used without performance bottlenecks, if the correct use of it is enforced.
+    I hope the information here presented was useful!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 31 Jul 2017 21:20:00 -0300</pubDate>
+        <link>http://nickrfer.com/2017/07/jpa-querying-performance-tips</link>
+        <guid isPermaLink="true">http://nickrfer.com/2017/07/jpa-querying-performance-tips</guid>
+        
+        
+        <category>jpa</category>
+        
+        <category>query</category>
+        
+        <category>performance</category>
+        
+        <category>tips</category>
+        
+      </item>
+    
+      <item>
+        <title>Code Review With Codebrag</title>
+        <description>&lt;h4 class=&quot;center-align bold&quot;&gt;Code Review With Codebrag&lt;/h4&gt;
+&lt;br /&gt;
+
+&lt;div class=&quot;container post&quot;&gt;
+  &lt;p&gt;Being software crafters, my team mates and I always strive to adhere to clean code practices. Solving the business need with the
+    simplest approach possible, as stated in the KISS (Keep It Simple Stupid) principle, creating small functions that does only one thing
+    (Single Responsibility), making the code self documented and easy to understand.
+  &lt;/p&gt;
+  &lt;p&gt;Occasionally there's always some new API or component that you didn't know about, or perhaps a better way to write the story your code is telling.
+    There's also the situation where a feature or a bug fix must be implemented in a rush and the developer has to make some tradeoffs.
+    This is where code review comes in.
+  &lt;/p&gt;
+  &lt;p&gt;
+    There are many open source tools for this job, but my team has chosen
+    &lt;a href=&quot;https://github.com/softwaremill/codebrag&quot;&gt;Codebrag&lt;/a&gt; mainly because it supports SVN and it's interface is user friendly.
+  &lt;/p&gt;
+
+  &lt;h5 class=&quot;bold&quot;&gt;Using Codebrag&lt;/h5&gt;
+  &lt;p style=&quot;margin-bottom: 0px !important;&quot;&gt;
+    This open source tool is easy to install and configure, basically all you have to do is:
+    &lt;ul&gt;
+      &lt;li&gt;Install Git and the JDK 7;&lt;/li&gt;
+      &lt;li&gt;Download the latest distribution at codebrag.com;&lt;/li&gt;
+      &lt;li&gt;Extract the zip file;&lt;/li&gt;
+      &lt;li&gt;Download your repository using Git and put it in the repo directory:
+        &lt;div&gt;
+          &lt;ul&gt;
+            &lt;li class=&quot;sub-item&quot;&gt;For Git repo, just use &lt;code&gt;git clone&lt;/code&gt;&lt;/li&gt;
+            &lt;li class=&quot;sub-item&quot;&gt;And for SVN repo, you have to use &lt;code&gt;git svn clone&lt;/code&gt; (in my case I had to specify the --username parameter,
+              and the specific revision instead of HEAD, which turned out like this
+              &lt;code&gt;git svn clone --username myuser -r140123 https://mysvnrepo.com&lt;/code&gt;)&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Edit the codebrag.conf file, where you can put your repo's username and password, and some app related configuration.&lt;/li&gt;
+      &lt;li&gt;Run the codebrag.bat file in case you're using Windows, or codebrag.sh for linux, and it is running!&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Having done that, enter the app and register your email, username and password. After that, the home page will load with the unreviewed commits.
+    You can register other members by clicking on the invite team members menu and sharing the link it generates with them.&lt;/p&gt;
+  &lt;p&gt;
+    Here's a demonstration of how to review someone else's commit:
+  &lt;/p&gt;
+
+  &lt;div class=&quot;center&quot;&gt;
+    &lt;video class=&quot;howto-video&quot; controls&gt;
+      &lt;source src=&quot;/img/codebrag-review.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;/video&gt;
+  &lt;/div&gt;
+  &lt;br /&gt;
+  &lt;p&gt;
+    Now I have logged in as the reviewed commit's owner, in order to demonstrate how to do a follow-up:
+  &lt;/p&gt;
+
+  &lt;div class=&quot;center&quot;&gt;
+    &lt;video class=&quot;howto-video&quot; controls&gt;
+      &lt;source src=&quot;/img/codebrag-followup.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    &lt;/video&gt;
+  &lt;/div&gt;
+  &lt;br /&gt;
+
+  &lt;h5 class=&quot;bold&quot;&gt;Conclusion&lt;/h5&gt;
+
+  &lt;p&gt;This is it for this tutorial, check out the &lt;a href=&quot;https://github.com/softwaremill/codebrag/wiki&quot;&gt;Codebrag Wiki&lt;/a&gt;
+    for more specific information, and the &lt;a href=&quot;https://devchat.tv/ruby-rogues/216-rr-code-review-culture-with-derek-prior&quot;&gt;
+    Ruby Rogues 216: RR Code Review Culture With Derek Prior&lt;/a&gt; for a great discussion on code review, and stay tuned for more blog posts to come!
+  &lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 26 Nov 2016 00:25:55 -0200</pubDate>
+        <link>http://nickrfer.com/2016/11/code-review-with-codebrag</link>
+        <guid isPermaLink="true">http://nickrfer.com/2016/11/code-review-with-codebrag</guid>
+        
+        
+        <category>code</category>
+        
+        <category>review</category>
+        
+        <category>codebrag</category>
+        
+      </item>
     
   </channel>
 </rss>
