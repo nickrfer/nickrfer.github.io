@@ -12,7 +12,7 @@
             {% endif %}
           </div>
           <ul class="right hide-on-med-and-down">
-              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ " / " | prepend: site.baseurl }}">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item {% if page.url == '/' %}is-active{% endif %}" href="{{ " / " | prepend: site.baseurl }}">{% t site.home %}</a></li>
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/portfolio/' %}is-active{% endif %}" href="{{ " /portfolio/ " | prepend: site.baseurl }}">Portfolio</a></li>
               <li><a itemprop="url" class="c-navigation__item {% if page.url == '/vita/' %}is-active{% endif %}" href="{{ " /vita/ " | prepend: site.baseurl }}">Vita</a></li>
           </ul>

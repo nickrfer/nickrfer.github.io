@@ -1,3 +1,5 @@
 site:
   greetings: !xml | 
     <span style="font-size&#58; 1.4rem"> Olá! Eu sou <span class="grey-text text-darken-2" style="font-weight&#58; bold">Nicolas Rodrigues Ferreira</span>, <br /> </span> Um engenheiro de Software, pai e marido dedicado &#9829;.<br /> Eu desenvolvo e escrevo artigos sobre programação web com java e javascript.<br /> Interessado em me <a href="https&#58;//drive.google.com/open?id=0B3xp00iBv0Ccc09wUldwNUEyYTA">contratar</a>?
+  home: Início
+  blog.posts: Artigos

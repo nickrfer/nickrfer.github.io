@@ -35,7 +35,7 @@ categories: jpa query performance tips
   </p>
   <p>
     For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
-    Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
+    Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a separate Query can be issued as well. For example:
   </p>
     {% highlight sql %}
 SELECT per.name FROM Person per
@@ -44,7 +44,7 @@ JOIN FETCH per.addressList adr
   <h5 class="bold">Page the data</h5>
   <p>
     In 99% of the cases where you need to query a big table, you don't have to retrieve all the data.
-    That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
+    That said, unless you are querying a small table that you know won't increase exponentially in size, paginate your query using the following syntax whenever possible:
   </p>
     {% highlight java %}
 Query query = entityManager.createQuery("SELECT per from Person per");
@@ -104,5 +104,5 @@ List<Person> personList = query.getResultList();
 
   <h5 class="bold">Conclusion</h5>
   <p>As stated in this article, JPA can be used without performance bottlenecks, if the correct use of it is enforced.
-    I hope the information here presented was useful!</p>
+    I hope the information here presented was useful. See you next time!</p>
 </div>
