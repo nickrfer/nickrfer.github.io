@@ -61,14 +61,14 @@
             
           </div>
           <ul class="right hide-on-med-and-down">
-              <li><a itemprop="url" class="c-navigation__item " href="/pt / ">Início</a></li>
-              <li><a itemprop="url" class="c-navigation__item " href="/pt /portfolio/ ">Portfolio</a></li>
-              <li><a itemprop="url" class="c-navigation__item " href="/pt /vita/ ">Vita</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" / ">Início</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /portfolio/ ">Portfolio</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /vita/ ">Vita</a></li>
           </ul>
           <ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
-              <li><a itemprop="url" class="c-navigation__item " href="/pt / ">Home</a></li>
-              <li><a itemprop="url" class="c-navigation__item " href="/pt /portfolio/ ">Portfolio</a></li>
-              <li><a itemprop="url" class="c-navigation__item " href="/pt /vita/ ">Vita</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" / ">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /portfolio/ ">Portfolio</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /vita/ ">Vita</a></li>
           </ul><a itemprop="url" href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 
           </div>
@@ -88,46 +88,50 @@
 <br />
 
 <div class="container post">
-  <p>Being software crafters, my team mates and I always strive to adhere to clean code practices. Solving the business need with the
-    simplest approach possible, as stated in the KISS (Keep It Simple Stupid) principle, creating small functions that does only one thing
-    (Single Responsibility), making the code self documented and easy to understand.
+  <p>Por sermos artesões de software, eu e meus colegas de equipe sempre tentamos ao máximo aderir às boas práticas de código limpo.   
+    Implementando os requisitos negociais com a solução mais simples possível, conforme descrito no princípio KISS (Keep It Simple Stupid),
+    criando pequenas funções que fazem somente uma coisa (Responsabilidade única), fazendo com que o código seja auto documentável 
+    e fácil de entender.
   </p>
-  <p>Occasionally there's always some new API or component that you didn't know about, or perhaps a better way to write the story your code is telling.
-    There's also the situation where a feature or a bug fix must be implemented in a rush and the developer has to make some tradeoffs.
-    This is where code review comes in.
+  <p>Ocasionalmente surge uma nova API ou um componente que até o momento você não conhecia, ou talvez uma forma mais otimizada 
+    de contar a história que seu código está contando, e seu código precisa ser alterado para adaptar à esta nova API/forma.
+    Também existe a situação em que uma nova funcionalidade ou uma correção de um bug precica ser implementada com rapidez e o desenvolvedor
+    tem que realizar algumas compensações para poder entregar à tempo.
+    Eis que a revisão do código aparece para verificar as janelas quebradas que podem surgir nos exemplos citados.
   </p>
   <p>
-    There are many open source tools for this job, but my team has chosen
-    <a href="https://github.com/softwaremill/codebrag">Codebrag</a> mainly because it supports SVN and it's interface is user friendly.
+    Existem muitas ferramentas open source que fazem este serviço, mas minhas equipe escolher o
+    <a href="https://github.com/softwaremill/codebrag">Codebrag</a> principalmente porque ele suporta SVN e por causa de sua interface amigável.
   </p>
 
-  <h5 class="bold">Using Codebrag</h5>
+  <h5 class="bold">Utilizando Codebrag</h5>
   <p style="margin-bottom: 0px !important;">
-    This open source tool is easy to install and configure, basically all you have to do is:
+    Esta ferramenta open source é fácil de instalar e configurar, basicamente tudo que você precisa fazer é:
     <ul>
-      <li>Install Git and the JDK 7;</li>
-      <li>Download the latest distribution at codebrag.com;</li>
-      <li>Extract the zip file;</li>
-      <li>Download your repository using Git and put it in the repo directory:
+      <li>Instalar o Git e a JDK 7+;</li>
+      <li>Efetuar o download da última distribuição da ferramenta em codebrag.com;</li>
+      <li>Extrair o arquivo zip;</li>
+      <li>Baixar o seu repositório utilizando Git e colocá-lo na pasta:
         <div>
           <ul>
-            <li class="sub-item">For Git repo, just use <code>git clone</code></li>
-            <li class="sub-item">And for SVN repo, you have to use <code>git svn clone</code> (in my case I had to specify the --username parameter,
-              and the specific revision instead of HEAD, which turned out like this
+            <li class="sub-item">Para um repositório no Git, basta usar <code>git clone</code></li>
+            <li class="sub-item">E para um repositório no SVN, você tem que usar <code>git svn clone</code> (no meu caso tive que especificar o parâmetro --username,
+              e a revisão específica ao invés da HEAD, que no final das contas ficou assim
               <code>git svn clone --username myuser -r140123 https://mysvnrepo.com</code>)</li>
           </ul>
         </div>
       </li>
-      <li>Edit the codebrag.conf file, where you can put your repo's username and password, and some app related configuration.</li>
-      <li>Run the codebrag.bat file in case you're using Windows, or codebrag.sh for linux, and it is running!</li>
+      <li>Editar o arquivo codebrag.conf, onde você pode colocar o usuário e senha para acessar o seu repositório,
+        e algumas configurações relacionadas à aplicação.</li>
+      <li>Executar o arquivo codebrag.bat caso você esteja usando Windows, ou codebrag.sh para Linux, e feito isso estará rodando!</li>
     </ul>
   </p>
 
   <p>
-    Having done that, enter the app and register your email, username and password. After that, the home page will load with the unreviewed commits.
-    You can register other members by clicking on the invite team members menu and sharing the link it generates with them.</p>
+    Terminando os passos anteriores, entre na aplicação e registre seu e-mail, usuário e senha. Após isso, a página inicial irá carregar os commits que não foram revisados.
+    Você pode registrar outros membros clicando na opção "invite team members" e compartilhando o link gerado com eles.</p>
   <p>
-    Here's a demonstration of how to review someone else's commit:
+    Segue abaixo uma demonstração de como revisar o commit de outra pessoa:
   </p>
 
   <div class="center">
@@ -137,7 +141,7 @@
   </div>
   <br />
   <p>
-    Now I have logged in as the reviewed commit's owner, in order to demonstrate how to do a follow-up:
+    Agora eu loguei com o dono do commit que foi revisado, para demonstrar como dar um retorno sobre o comentário efetuado:
   </p>
 
   <div class="center">
@@ -147,11 +151,11 @@
   </div>
   <br />
 
-  <h5 class="bold">Conclusion</h5>
+  <h5 class="bold">Conclusão</h5>
 
-  <p>This is it for this tutorial, check out the <a href="https://github.com/softwaremill/codebrag/wiki">Codebrag Wiki</a>
-    for more specific information, and the <a href="https://devchat.tv/ruby-rogues/216-rr-code-review-culture-with-derek-prior">
-    Ruby Rogues 216: RR Code Review Culture With Derek Prior</a> for a great discussion on code review, and stay tuned for more blog posts to come!
+  <p>E é isso para este tutorial, dê uma olhada em <a href="https://github.com/softwaremill/codebrag/wiki">Codebrag Wiki</a> para informações mais específicas
+    e escute o Podcast <a href="https://devchat.tv/ruby-rogues/216-rr-code-review-culture-with-derek-prior">
+    Ruby Rogues 216: RR Code Review Culture With Derek Prior</a> para uma ótima discussão sobre revisão de código. Até a próxima!
   </p>
 </div>
 
