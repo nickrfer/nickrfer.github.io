@@ -48,6 +48,7 @@ sass:
 
 gems: 
   - jekyll-multiple-languages-plugin
+  - jekyll-seo-tag
   
 languages: ["en", "pt"]
 exclude_from_localizations: ["js", "img", "css", "assets", "CNAME"]

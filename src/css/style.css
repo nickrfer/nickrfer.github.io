@@ -1,0 +1,76 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.list-square {
+  list-style-type: square !important;
+}
+p {
+  font-size: 1.25em;
+}
+.howto-video {
+  width:100%;
+  height:100%;
+}
+.post p {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1.5em !important;
+}
+.post ul li.sub-item {
+  list-style-type: circle !important;
+}
+.post ul {
+  display: block;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 40px;
+}
+.post ul li {
+  list-style-type: disc;
+}
+/*code {
+  background-color: none !important;
+  border: none !important;
+}*/
+.c-article__main {
+  color: grey !important;
+}
+h4 {
+  color: grey !important;
+}
+h5 {
+  color: grey !important;
+}
+p {
+  color: grey !important;
+}
+.card-title h5 {
+  color: white !important;
+}
+.card-content p {
+  color: white !important;
+}
+.i8n-flags {
+  position: absolute;
+}
+@media screen and (min-width: 1000px) {
+    .i8n-flags {
+        margin-left: 20em;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .i8n-flags {
+        left: 80%;
+    }
+}
