@@ -78,7 +78,8 @@
 
     <!-- <div id="root"></div> -->
 
-    <article class="c-article">
+    <script>document.body.className += ' fade-out';</script>
+<article class="c-article">
   <div class="row">
     <div class="col s12" style="text-align: center;">&nbsp;</div>
   </div>
@@ -185,6 +186,11 @@
 <script src="/js/plugins/detect-mobile.js"></script>
 <script src="/js/bundle.js" charset="utf-8"></script>
 <script id="dsq-count-scr" src="//nickrfer.disqus.com/count.js" async></script>
+<script>
+  $(function() {
+    $('body').removeClass('fade-out');
+  });
+</script>
 
   </body>
 </html>
