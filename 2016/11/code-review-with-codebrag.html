@@ -48,7 +48,7 @@
 <!-- End Jekyll SEO tag -->
   </head>
 
-  <body class="grey darken-4">
+  <body class="grey darken-4 fade-out">
     <header class="navbar-fixed" id="header">
   <nav class="teal darken-3 " role="navigation">
       <div class="nav-wrapper container left-align">
@@ -233,6 +233,11 @@ s.setAttribute('data-timestamp', +new Date());
 <script src="/js/plugins/detect-mobile.js"></script>
 <script src="/js/bundle.js" charset="utf-8"></script>
 <script id="dsq-count-scr" src="//nickrfer.disqus.com/count.js" async></script>
+<script>
+  $(function() {
+    $('body').removeClass('fade-out');
+  });
+</script>
 
   </body>
 </html>
