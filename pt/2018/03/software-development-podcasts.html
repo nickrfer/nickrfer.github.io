@@ -7,13 +7,13 @@
   <meta name="google-site-verification" content="l-UbdyRHWOj6SzgX0-k_50icWS0XE5Zcou3iWP3SmQ4" />
   <meta property="og:locale:alternate" content="pt_BR" />
 
-    <title>JPA Querying Performance Tips</title>
+    <title>Software Development Podcasts</title>
 
-    <meta name="description" content="Great Programming Podcasts March 17, 2018">
+    <meta name="description" content="Software Development PodcastsMarch 17, 2018">
 
     <link rel="author" href="https://www.linkedin.com/in/nickrfer" />
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://nickrfer.com/2018/03/great-programming-podcasts">
+    <link rel="canonical" href="http://nickrfer.com/2018/03/software-development-podcasts">
     <link rel="alternate" type="application/rss+xml" title="Nicolas Ferreira" href="http://nickrfer.com/feed.xml">
     <link rel="shortcut icon" href="/img/icons/favicon.ico" type="image/x-icon" />
 
@@ -52,16 +52,16 @@
     <header class="navbar-fixed" id="header">
   <nav class="teal darken-3 " role="navigation">
       <div class="nav-wrapper container left-align">
-          <a itemprop="url" id="logo-container" href="" class="brand-logo">
+          <a itemprop="url" id="logo-container" href="/pt" class="brand-logo">
               nickrfer
           </a>
           <div class="i8n-flags">
-
-            <a class="c-navigation__item" href="/pt/"><img src="/img/icons/flag_pt.png" /></a>
-
+            
+            <a class="c-navigation__item" href="/"><img src="/img/icons/flag_en.png" /></a>
+            
           </div>
           <ul class="right hide-on-med-and-down">
-              <li><a itemprop="url" class="c-navigation__item " href=" / ">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" / ">Início</a></li>
               <li><a itemprop="url" class="c-navigation__item " href=" /portfolio/ ">Portfolio</a></li>
               <li><a itemprop="url" class="c-navigation__item " href=" /vita/ ">Vita</a></li>
           </ul>
@@ -84,103 +84,44 @@
   </div>
 
   <div class="c-article__main">
-    <h4 class="center-align bold">Great Programming Podcasts</h4>
+    <h4 class="center-align bold">Software Development Podcasts</h4>
 <h6 class="center-align bold">March 17, 2018</h6>
 <br />
 
 <div class="container post">
-  <!--<p><img src="http://nickrfer.com/img/jpa-performance.jpeg" />-->
-  <p>Hello readers. It's been quite a while!</p>
-  <p>In this post, I will share some tips that will help your application
-    perform fast while using JPA, and Hibernate as a JPA provider. JPA can cause quite an overhead if it's not used correctly from the start of the project.
-    In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
-  </p>
-  <p>
-    To make sure that querying using JPA performs well, basically it boils down to:
+  <p><img src="http://nickrfer.com/img/ruby-rogues.png" />
+  <p>Estive escutando alguns podcasts relacionados à desenvolvimento de software, e encontrei este chamado ruby rogues, o qual
+    produz conteúdo com qualidade muito boa. Eu recomendo fortemente que você escute os seguintes episódios mesmo que você não esteja famialiarizado com ruby ou rails:
+
     <ul>
-      <li>Eager and Lazy Loading;</li>
-      <li>Page the data;</li>
-      <li>Consider not using 'Select * FROM';</li>
-      <li>Don't query in a loop;</li>
-      <li>Don't be afraid to go Native.</li>
+      <li><a href="https://devchat.tv/ruby-rogues/rr-339-typical-day-developer">RR 339: Typical Day of a Developer</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/rr-322-finding-great-job">RR 322 Finding a Great Job</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/216-rr-code-review-culture-with-derek-prior">216 RR Code Review Culture with Derek Prior</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/199-rr-deployments-with-noah-gibbs">199 RR Deployments with Noah Gibbs</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/195-rr-building-your-technology-radar-with-neal-ford">195 RR Building Your Technology Radar with Neal Ford</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/191-rr-the-developer-happiness-team-with-kerri-miller">191 RR The Developer Happiness Team with Kerri Miller</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/186-rr-the-4-rules-of-simple-design-with-corey-haines">186 RR The 4 Rules of Simple Design with Corey Haines</a></li>
+      <li><a href="https://devchat.tv/ruby-rogues/109-rr-extreme-programming-with-will-read">109 RR Extreme Programming with Will Read</a></li>
     </ul>
   </p>
 
-  <h5 class="bold">Eager and Lazy Loading</h5>
   <p>
-    Eager loading happens for @ManyToOne annotated attributes by default, and when declared explicitly with FetchType.EAGER.
-    What this means is that every time an entity is retrieved, another select is issued to the database for every eager attribute.
-  </p>
-  <p>
-    For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
-    Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
-  </p>
-    <figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">per</span><span class="p">.</span><span class="n">name</span> <span class="k">FROM</span> <span class="n">Person</span> <span class="n">per</span>
-<span class="k">JOIN</span> <span class="k">FETCH</span> <span class="n">per</span><span class="p">.</span><span class="n">addressList</span> <span class="n">adr</span>
-    </code></pre></figure>
-  <h5 class="bold">Page the data</h5>
-  <p>
-    In 99% of the cases where you need to query a big table, you don't have to retrieve all the data.
-    That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
-  </p>
-    <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Query</span> <span class="n">query</span> <span class="o">=</span> <span class="n">entityManager</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"SELECT per from Person per"</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">pageNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-<span class="kt">int</span> <span class="n">pageSize</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
-<span class="n">query</span><span class="o">.</span><span class="na">setFirstResult</span><span class="o">((</span><span class="n">pageNumber</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">*</span> <span class="n">pageSize</span><span class="o">);</span>
-<span class="n">query</span><span class="o">.</span><span class="na">setMaxResults</span><span class="o">(</span><span class="n">pageSize</span><span class="o">);</span>
-<span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personList</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
-    </code></pre></figure>
-  <h5 class="bold">Consider not using 'Select * FROM'</h5>
-  <p>
-    If you querying a table that has more than 30 attributes, this syntax can slow down the database.
-    There's also a huge slow down when one of those attributes is a BLOB or CLOB types. I've seen a page that loaded a BLOB attribute unnecessarily taking 30s to load, to less than 1s after changing the query to select specific attributes.
-  </p>
-  <p>
-    In these cases it is preferred that you create a Value Object that will hold specific values from the table.
+    Você pode encontrar outros podcasts interessantes, como por exemplo Adventures in Angular, e outros relacionados à desenvolvimento de software em: https://devchat.tv/.
   </p>
 
-  <h5 class="bold">Don't query in a loop</h5>
   <p>
-    Usually it is better to fetch all the data you need right from the start, using join fetch for example.
-    But that's not always possible. But whatever you do, don't query in a loop.
-  </p>
-  <p>
-    Try as much as you can to make a query that will fetch all the data (paged if there's too much registers).
-    Just be careful of using the IN to fetch de dependencies. Generally IN will slow down the database if used with 100+ registers.
-  </p>
-  <p>
-    There are some techniques that are faster than using IN, such as:
+    Também recomendo que você escute ao podcast Hispter pontotech, sobre o qual eu gostaria de destacar os seguintes episódios:
     <ul>
-      <li>Using a Temporary table;</li>
-      <li>Using XMLTable (if the database supports it).</li>
+      <li><a href="https://hipsters.tech/spring-framework-hipsters-87/">Spring Framework – Hipsters #87</a></li>
+      <li><a href="https://hipsters.tech/scrum-do-zero-ao-sprint-hipsters-54/">Scrum: do zero ao Sprint – Hipsters #54</a></li>
+      <li><a href="https://hipsters.tech/tecnologias-na-netflix-hipsters-41/">Tecnologias na Netflix – Hipsters #41</a></li>
+      <li><a href="https://hipsters.tech/o-reino-encantado-do-javascript-hipsters-38/">O Reino encantado do JavaScript – Hipsters #38</a></li>
+      <li><a href="https://hipsters.tech/nosql-por-que-hipsters-22/">NoSQL: por quê? – Hipsters #22</a></li>
+      <li><a href="https://hipsters.tech/microservicos-hipsters-17/">Microserviços – Hipsters #17</a></li>
+      <li><a href="https://hipsters.tech/agilidade-hipsters-05/">Agilidade – Hipsters #05</a></li>
     </ul>
   </p>
 
-  <h5 class="bold">Don't be afraid to go Native</h5>
-  <p>
-    The database can do a lot of work for you. So use it in your favor.
-    If a process can be optimized to fetch/insert all the data in one or more SQL queries, that would be too slow if done individually in Java code, don't be afraid to use Native Queries.
-  </p>
-  <p>
-    For example, a process done in Java like this:
-    <ul>
-      <li>Iterate over user input;</li>
-      <li>For each item, update 10000+ registers and insert the data;</li>
-    </ul>
-  </p>
-  <p>
-    Could be a lot faster if optimized and done like this:
-    <ul>
-      <li>Create a trigger on the table that will be responsible for updating the 10000+ registers;</li>
-      <li>Create a temporary table and insert all the input registers in it;</li>
-      <li>Call a command that does a 'INSERT SELECT' from the temporary table to the definitive one;</li>
-      <li>Since only one command was issued, the trigger will be activated only once, making the operation most likely faster;</li>
-    </ul>
-  </p>
-
-  <h5 class="bold">Conclusion</h5>
-  <p>As stated in this article, JPA can be used without performance bottlenecks, if the correct use of it is enforced.
-    I hope the information here presented was useful! See you next time!</p>
 </div>
 
   </div>
@@ -196,7 +137,7 @@
 var disqus_config = function () {
 // this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
 // this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-	this.language = 'en';
+	this.language = 'pt';
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
@@ -215,31 +156,31 @@ s.setAttribute('data-timestamp', +new Date());
   <div class="u-container c-footer__container">
     <p>
       <div class="c-social__icons">
-
+        
           <a class="grey-text"  href="https://github.com/nickrfer" target='_blank'>
             <i class="typcn typcn-social-github"></i>
           </a>
-
-
+        
+        
           <a class="grey-text social-icon" href="http://twitter.com/nickrfer" target='_blank'>
             <i class="typcn typcn-social-twitter"></i>
           </a>
-
-
+        
+        
           <a class="grey-text" href="https://www.linkedin.com/in/nickrfer" target='_blank'>
             <i class="typcn typcn-social-linkedin"></i>
           </a>
-
-
+        
+        
           <a class="grey-text" href="http://codepen.io/nickrfer" target='_blank'>
             <i class="typcn typcn-code"></i>
           </a>
-
-
+        
+        
           <a class="grey-text" href="http://www.freecodecamp.com/nickrfer" target='_blank'>
             <i class="typcn typcn-chart-area"></i>
           </a>
-
+        
       </div>
     </p>
   </div>
