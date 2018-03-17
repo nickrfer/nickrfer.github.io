@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="t-">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="l-UbdyRHWOj6SzgX0-k_50icWS0XE5Zcou3iWP3SmQ4" />
+  <meta property="og:locale:alternate" content="pt_BR" />
+
+    <title>JPA Querying Performance Tips</title>
+
+    <meta name="description" content="Great Programming Podcasts March 17, 2018">
+
+    <link rel="author" href="https://www.linkedin.com/in/nickrfer" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://nickrfer.com/2018/03/great-programming-podcasts">
+    <link rel="alternate" type="application/rss+xml" title="Nicolas Ferreira" href="http://nickrfer.com/feed.xml">
+    <link rel="shortcut icon" href="/img/icons/favicon.ico" type="image/x-icon" />
+
+    <!-- <script src="/js/jquery-2.1.1.min.js"></script> -->
+    <link rel="stylesheet" href="/fonts/material-icons.css">
+    <link rel="stylesheet" href="/fonts/typicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!--  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-84994086-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  <!-- Titularidade do spider ad -->
+
+    <!-- Begin Jekyll SEO tag v2.2.3 -->
+<!--<meta property="og:title" content="Installing Jekyll SEO Tag" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Jekyll plugin to add metadata tags for search engines and social networks to better index and display your site’s content." />
+<meta property="og:description" content="A Jekyll plugin to add metadata tags for search engines and social networks to better index and display your site’s content." />
+<link rel="canonical" href="http://jekyll.github.io/jekyll-seo-tag/installation/" />
+<meta property="og:url" content="http://nickrfer.com/" />
+<meta property="og:site_name" content="nickrfer" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"WebPage","headline":"Installing Jekyll SEO Tag","description":"A Jekyll plugin to add metadata tags for search engines and social networks to better index and display your site’s content.","url":"http://jekyll.github.io/jekyll-seo-tag/installation/"}</script>-->
+<!-- End Jekyll SEO tag -->
+  </head>
+
+  <body class="grey darken-4">
+    <header class="navbar-fixed" id="header">
+  <nav class="teal darken-3 " role="navigation">
+      <div class="nav-wrapper container left-align">
+          <a itemprop="url" id="logo-container" href="" class="brand-logo">
+              nickrfer
+          </a>
+          <div class="i8n-flags">
+
+            <a class="c-navigation__item" href="/pt/"><img src="/img/icons/flag_pt.png" /></a>
+
+          </div>
+          <ul class="right hide-on-med-and-down">
+              <li><a itemprop="url" class="c-navigation__item " href=" / ">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /portfolio/ ">Portfolio</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /vita/ ">Vita</a></li>
+          </ul>
+          <ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
+              <li><a itemprop="url" class="c-navigation__item " href=" / ">Home</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /portfolio/ ">Portfolio</a></li>
+              <li><a itemprop="url" class="c-navigation__item " href=" /vita/ ">Vita</a></li>
+          </ul><a itemprop="url" href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+          </div>
+  </nav>
+</header>
+
+
+    <!-- <div id="root"></div> -->
+
+    <article class="c-article">
+  <div class="row">
+    <div class="col s12" style="text-align: center;">&nbsp;</div>
+  </div>
+
+  <div class="c-article__main">
+    <h4 class="center-align bold">Great Programming Podcasts</h4>
+<h6 class="center-align bold">March 17, 2018</h6>
+<br />
+
+<div class="container post">
+  <!--<p><img src="http://nickrfer.com/img/jpa-performance.jpeg" />-->
+  <p>Hello readers. It's been quite a while!</p>
+  <p>In this post, I will share some tips that will help your application
+    perform fast while using JPA, and Hibernate as a JPA provider. JPA can cause quite an overhead if it's not used correctly from the start of the project.
+    In some companies, it has actually gotten such a bad reputation to the point that a lot of operations has to be done using pure JDBC.
+  </p>
+  <p>
+    To make sure that querying using JPA performs well, basically it boils down to:
+    <ul>
+      <li>Eager and Lazy Loading;</li>
+      <li>Page the data;</li>
+      <li>Consider not using 'Select * FROM';</li>
+      <li>Don't query in a loop;</li>
+      <li>Don't be afraid to go Native.</li>
+    </ul>
+  </p>
+
+  <h5 class="bold">Eager and Lazy Loading</h5>
+  <p>
+    Eager loading happens for @ManyToOne annotated attributes by default, and when declared explicitly with FetchType.EAGER.
+    What this means is that every time an entity is retrieved, another select is issued to the database for every eager attribute.
+  </p>
+  <p>
+    For that reason, I always anotate @OneToMany and @ManyToOne attributes with FetchType.LAZY.
+    Whenever I need to load the lazy attribute, I use the "fetch" keyword, and in some cases a seperate Query can be issued as well. For example:
+  </p>
+    <figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">per</span><span class="p">.</span><span class="n">name</span> <span class="k">FROM</span> <span class="n">Person</span> <span class="n">per</span>
+<span class="k">JOIN</span> <span class="k">FETCH</span> <span class="n">per</span><span class="p">.</span><span class="n">addressList</span> <span class="n">adr</span>
+    </code></pre></figure>
+  <h5 class="bold">Page the data</h5>
+  <p>
+    In 99% of the cases where you need to query a big table, you don't have to retrieve all the data.
+    That said, unless you are querying a small table that you know won't increase exponentially in size, always paginate your query using the following syntax:
+  </p>
+    <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Query</span> <span class="n">query</span> <span class="o">=</span> <span class="n">entityManager</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"SELECT per from Person per"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">pageNumber</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">pageSize</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="n">query</span><span class="o">.</span><span class="na">setFirstResult</span><span class="o">((</span><span class="n">pageNumber</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">*</span> <span class="n">pageSize</span><span class="o">);</span>
+<span class="n">query</span><span class="o">.</span><span class="na">setMaxResults</span><span class="o">(</span><span class="n">pageSize</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personList</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+    </code></pre></figure>
+  <h5 class="bold">Consider not using 'Select * FROM'</h5>
+  <p>
+    If you querying a table that has more than 30 attributes, this syntax can slow down the database.
+    There's also a huge slow down when one of those attributes is a BLOB or CLOB types. I've seen a page that loaded a BLOB attribute unnecessarily taking 30s to load, to less than 1s after changing the query to select specific attributes.
+  </p>
+  <p>
+    In these cases it is preferred that you create a Value Object that will hold specific values from the table.
+  </p>
+
+  <h5 class="bold">Don't query in a loop</h5>
+  <p>
+    Usually it is better to fetch all the data you need right from the start, using join fetch for example.
+    But that's not always possible. But whatever you do, don't query in a loop.
+  </p>
+  <p>
+    Try as much as you can to make a query that will fetch all the data (paged if there's too much registers).
+    Just be careful of using the IN to fetch de dependencies. Generally IN will slow down the database if used with 100+ registers.
+  </p>
+  <p>
+    There are some techniques that are faster than using IN, such as:
+    <ul>
+      <li>Using a Temporary table;</li>
+      <li>Using XMLTable (if the database supports it).</li>
+    </ul>
+  </p>
+
+  <h5 class="bold">Don't be afraid to go Native</h5>
+  <p>
+    The database can do a lot of work for you. So use it in your favor.
+    If a process can be optimized to fetch/insert all the data in one or more SQL queries, that would be too slow if done individually in Java code, don't be afraid to use Native Queries.
+  </p>
+  <p>
+    For example, a process done in Java like this:
+    <ul>
+      <li>Iterate over user input;</li>
+      <li>For each item, update 10000+ registers and insert the data;</li>
+    </ul>
+  </p>
+  <p>
+    Could be a lot faster if optimized and done like this:
+    <ul>
+      <li>Create a trigger on the table that will be responsible for updating the 10000+ registers;</li>
+      <li>Create a temporary table and insert all the input registers in it;</li>
+      <li>Call a command that does a 'INSERT SELECT' from the temporary table to the definitive one;</li>
+      <li>Since only one command was issued, the trigger will be activated only once, making the operation most likely faster;</li>
+    </ul>
+  </p>
+
+  <h5 class="bold">Conclusion</h5>
+  <p>As stated in this article, JPA can be used without performance bottlenecks, if the correct use of it is enforced.
+    I hope the information here presented was useful! See you next time!</p>
+</div>
+
+  </div>
+</article>
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+// this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+// this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.language = 'en';
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://nickrfer.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+    <footer class="c-footer">
+  <div class="u-container c-footer__container">
+    <p>
+      <div class="c-social__icons">
+
+          <a class="grey-text"  href="https://github.com/nickrfer" target='_blank'>
+            <i class="typcn typcn-social-github"></i>
+          </a>
+
+
+          <a class="grey-text social-icon" href="http://twitter.com/nickrfer" target='_blank'>
+            <i class="typcn typcn-social-twitter"></i>
+          </a>
+
+
+          <a class="grey-text" href="https://www.linkedin.com/in/nickrfer" target='_blank'>
+            <i class="typcn typcn-social-linkedin"></i>
+          </a>
+
+
+          <a class="grey-text" href="http://codepen.io/nickrfer" target='_blank'>
+            <i class="typcn typcn-code"></i>
+          </a>
+
+
+          <a class="grey-text" href="http://www.freecodecamp.com/nickrfer" target='_blank'>
+            <i class="typcn typcn-chart-area"></i>
+          </a>
+
+      </div>
+    </p>
+  </div>
+</footer>
+
+<script src="/js/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="/fonts/material-icons.css">
+
+<!-- build:jsa -->
+<script src="/js/materialize.min.js"></script>
+<script src="/js/init.js"></script>
+<script src="/js/plugins/smooth-scroll.js"></script>
+<script type="text/javascript" src="/js/plugins/super-search.js"></script>
+<script src="/js/plugins/jquery.appear.js"></script>
+<script src="/js/plugins/skills.js"></script>
+<script src="/js/timeline.js"></script>
+<script src="/js/modernizr.js"></script>
+<!-- endbuild -->
+<script src="/js/plugins/detect-mobile.js"></script>
+<script src="/js/bundle.js" charset="utf-8"></script>
+<script id="dsq-count-scr" src="//nickrfer.disqus.com/count.js" async></script>
+<script>
+  $(function() {
+    $('body').removeClass('fade-out');
+  });
+</script>
+
+  </body>
+</html>
